@@ -9,13 +9,14 @@ from functions import *
 
 print('-----------------------------------------------')
 print('-----------------Library App-------------------')
-print('-----------------------------------------------')
+
 while True:
-    print('1) Add New book')
+    print('-----------------------------------------------')
+    print('1) Add New book')       # Done
     print('2) Remove book')
     print('3) I read some pages')
     print('4) Get book details')
-    print('5) Show my Library')
+    print('5) Show my Library')     # Done
     print('6) Sort my library')
     print('7) Mark page')
     print('0) Exit')
@@ -24,3 +25,4 @@ while True:
 
     choice = input()
     check(choice)
+

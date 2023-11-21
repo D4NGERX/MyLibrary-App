@@ -1,7 +1,7 @@
 # input/Output functions
 read_input()    ---> From file
 cell_format(size, string)  ---> make all strings with the same size to draw a table
-output(string)  ---> print in both command line and output file
++ output(string)  ---> print in both command line and output file
 
 
 # Lists and variables
@@ -15,13 +15,14 @@ We may use try/except statements
 
 
 #Program Functions
-* add(Book_name, number of pages, Date, Status)
++ * add(Book_name, number of pages, Date, Status)
 * remove(book_name)
 * read(number of read pages)
 * count_percentage_of_reading(book)
 ** sortby(parameter) # Start Date-Alphabetically-percentage
 * markPage(page_number)
 rate_book(book_name)   ---> Rate after reading
++ Show Library
 
 
 show_books_by(parameter) # Author - Name - Date - Stauts

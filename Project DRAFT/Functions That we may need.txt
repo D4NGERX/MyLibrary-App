@@ -1,0 +1,23 @@
+# input/Output functions
+read_input()    ---> From file
+cell_format(size, string)  ---> make all strings with the same size to draw a table
+output(string)  ---> print in both command line and output file
+
+
+# Lists and variables
+(list)book = [name, number of pages, number of read pages, Start Date, Status]
+list = get_books() ---> From file
+var cell = 'ELEMENT+\t' or 'ELEMENT+\t\t'  ---> According to element Size
+
+
+#Program Functions
+add(Book_name, number of pages, Date, Status)
+remove(book_name)
+read(number of read pages)
+count_percentage_of_reading(book)
+sortby(parameter) # Start Date-Alphabetically-percentage
+markPage(page_number)
+
+show_books_by(parameter) # Author - Name - Date - Stauts
+show_book_details(bookName, what_you_want) # Marked Pages - Author - Date - Status
+Modify(bookName, Modification)

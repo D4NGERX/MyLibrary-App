@@ -4,3 +4,7 @@
 # Version: v1.0
 # Description: -----
 ################################
+
+from functions import *
+
+main_loop()

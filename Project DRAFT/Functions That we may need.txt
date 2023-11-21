@@ -10,13 +10,19 @@ list = get_books() ---> From file
 var cell = 'ELEMENT+\t' or 'ELEMENT+\t\t'  ---> According to element Size
 
 
+# Notes
+We may use try/except statements
+
+
 #Program Functions
-add(Book_name, number of pages, Date, Status)
-remove(book_name)
-read(number of read pages)
-count_percentage_of_reading(book)
-sortby(parameter) # Start Date-Alphabetically-percentage
-markPage(page_number)
+* add(Book_name, number of pages, Date, Status)
+* remove(book_name)
+* read(number of read pages)
+* count_percentage_of_reading(book)
+** sortby(parameter) # Start Date-Alphabetically-percentage
+* markPage(page_number)
+rate_book(book_name)   ---> Rate after reading
+
 
 show_books_by(parameter) # Author - Name - Date - Stauts
 show_book_details(bookName, what_you_want) # Marked Pages - Author - Date - Status

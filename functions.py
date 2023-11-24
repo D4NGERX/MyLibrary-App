@@ -3,7 +3,7 @@
 # input_file = open(r'D:\PROJECTS\Library Project\input.txt', 'r')
 
 
-def check(choice):          # Osama
+def check(choice):          # Osama   # Checking User Choice
     output_file = open(r'D:\PROJECTS\Library Project\output.txt', 'w')
     if choice == '1':
         add_new_book()
@@ -35,13 +35,13 @@ def check(choice):          # Osama
     else:
         print('Enter a valid choice \n')
 
-def output(string):         # Osama
+def output(string):         # Osama   # Printing Values in both terminal and output.txt file
     output_file = open(r'D:\PROJECTS\Library Project\output.txt', 'a')
     print(string, end='')
     output_file.write(string)
     output_file.close()
 
-def add_new_book():         # Osama
+def add_new_book():         # Osama   # Adding book to Library
     title = input('Book title: ')
     Total_pages = input('Number of pages: ')
     author = input('Author name: ')
@@ -53,14 +53,14 @@ def add_new_book():         # Osama
     database_a.write('\n+-----------------------+---------------+-------+---------------+---------------+-----------------------+')
     database_a.close()
 
-def show_library():         # Osama
+def show_library():         # Osama   # Showing th Whole Library
     database = open(r'D:\PROJECTS\Library Project\database.txt', 'r')
     lines = database.readlines()
 
     for line in lines:
         output(line)
 
-def formatting(title, totalPages, date, author, status, pages=0, percent=0):    # Osama
+def formatting(title, totalPages, date, author, status, pages=0, percent=0):    # Osama     # generating line to be printed in a table shape
     title_cell = cell_format(title, 3)
     pages_cell = cell_format(f'{pages}/{totalPages}', 2)
     percent_cell = cell_format(f'{percent}%', 1)
@@ -71,7 +71,7 @@ def formatting(title, totalPages, date, author, status, pages=0, percent=0):    
     result = f'\n| {title_cell}| {pages_cell}| {percent_cell}| {date_cell}| {status_cell}| {author_cell}|'
     return result
 
-def cell_format(string, number_of_tabs):    # Osama
+def cell_format(string, number_of_tabs):    # Osama     # Generating Cell Shape
     if len(string) < 6:
         string += '\t'*(number_of_tabs)
     elif len(string) < 14:
@@ -83,7 +83,7 @@ def cell_format(string, number_of_tabs):    # Osama
 
     return string
 
-def show_books_by(parameter, value):    # Osama
+def show_books_by(parameter, value):    # Osama         # Fin books with parameter value
     database = open(r'D:\PROJECTS\Library Project\database.txt', 'r') # Opening input file
     lines = database.readlines()
 

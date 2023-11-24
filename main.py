@@ -1,7 +1,7 @@
 ###############################
 # Title: Library Program
 # Authors: Osama Ashraf & Muhammad Radwan
-# Version: v1.5
+# Version: v2.0
 # Description: -----
 ################################
 
@@ -28,5 +28,5 @@ while True:
     choice = input()
     check(choice)
     
-    print('-----------------------------------------------')
+    print('\n-----------------------------------------------')
 

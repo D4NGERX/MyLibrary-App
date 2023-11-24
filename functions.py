@@ -15,6 +15,11 @@ def check(choice):          # Osama   # Checking User Choice
     #     remove_book()
     # elif choice == '3':
     #     read_pages()
+    #     calc_percent()
+    #     modify(title, percent, new_percent)
+    #     if percent == 100:
+    #           modify(title, status, 'Finished')
+    #           rate_book(title)
     
     elif choice == '4':
         title = input('Enter book Title: ').lower()
@@ -38,6 +43,9 @@ def check(choice):          # Osama   # Checking User Choice
         value = input('Enter value: ').lower()
         show_books_by(parameter, value)
     
+    # elif choice == '9':
+    #     modify(title, paramteter, modification)
+
     elif choice == '0':         # exiting Program using exit() function
         exit()
     
@@ -144,5 +152,8 @@ def clear_screen():             # Clearing Console using os library
     import os
     os.system('cls')
 
+
+# def modify(title, parameter, new_value):
+# 
 
 

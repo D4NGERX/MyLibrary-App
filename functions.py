@@ -105,7 +105,7 @@ def cell_format(string, number_of_tabs):    # Osama     # Generating Cell Shape
 
     return string
 
-def show_books_by(parameter, value):    # Osama         # Fin books with parameter value
+def show_books_by(parameter, value):    # Osama         # Find books with parameter value
     database = open(r'D:\PROJECTS\Library Project\database.txt', 'r') # Opening input file
     lines = database.readlines()
 
@@ -153,7 +153,26 @@ def clear_screen():             # Clearing Console using os library
     os.system('cls')
 
 
-# def modify(title, parameter, new_value):
-# 
+def modify(title, parameter, new_value):
+    database = open(r'D:\PROJECTS\Library Project\database.txt', 'r') # Opening input file
+    lines = database.readlines()
 
+def get_books(): # Osama    # Get books details list
+    books_details = []
+    database = open(r'D:\PROJECTS\Library Project\database.txt', 'r') # Opening input file
+    lines = database.readlines()
+    for line in lines:
+        line = line.replace('\t', '').split('|')      # Clearing line
+        line = removeAll(line, '')                    #
+        line = removeAll(line, '\n')
+
+        for i in range(len(line)):
+            line[i] = line[i].replace(' ', '', 1)              # Clearing each string from prefix space
+
+        if len(line) > 1:
+            books_details.append(line)
+
+
+    database.close()
+    return books_details
 

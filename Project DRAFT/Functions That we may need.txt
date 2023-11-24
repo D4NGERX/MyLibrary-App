@@ -1,5 +1,5 @@
 # input/Output functions
-// +? read_input()    ---> From file
+/skip/ read_input()    ---> From file
 + cell_format(size, string)  ---> make all strings with the same size to draw a table
 + output(string)  ---> print in both command line and output file
 
@@ -15,7 +15,7 @@ We may use try/except statements
 
 
 #Program Functions
-+ * add(Book_name, number of pages, Date, Status)
++ * add(Book_name, number of pages, Date, Status)  --> New Future: If book title already exists, notify user
 * remove(book_name)
 * read(number of read pages)
 * count_percentage_of_reading(book)
@@ -25,6 +25,8 @@ rate_book(book_name)   ---> Rate after reading
 + Show Library
 
 
-show_books_by(parameter) # Author - Name - Date - Stauts
-show_book_details(bookName, what_you_want) # Marked Pages - Author - Date - Status
++ show_books_by(parameter) # Author - Name - Date - Stauts
++ show_book_details(bookName, what_you_want) # Marked Pages - Author - Date - Status
 Modify(bookName, Modification)
++ clear_screen()
++ exit()

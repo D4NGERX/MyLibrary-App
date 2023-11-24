@@ -1,37 +1,51 @@
-# database = open(r'D:\PROJECTS\Library Project\database.txt', 'r')
-# output_file = open(r'D:\PROJECTS\Library Project\output.txt', 'w')
-# input_file = open(r'D:\PROJECTS\Library Project\input.txt', 'r')
+table_header = '''+-----------------------+---------------+-------+---------------+---------------+-----------------------+
+|			|		|	|		|		|			|
+| Title			| Pages		| per	| Date		| Status	| Author		|
+|			|		|	|		|		|			|
++-----------------------+---------------+-------+---------------+---------------+-----------------------+'''
+separating_line = '+-----------------------+---------------+-------+---------------+---------------+-----------------------+'
 
 
 def check(choice):          # Osama   # Checking User Choice
-    output_file = open(r'D:\PROJECTS\Library Project\output.txt', 'w')
+    output_file = open(r'D:\PROJECTS\Library Project\output.txt', 'w') # Making Sure That output file is opened and clean
     if choice == '1':
         add_new_book()
+    
     # elif choice == '2':
     #     remove_book()
     # elif choice == '3':
     #     read_pages()
-    # elif choice == '4':
-    #     get_book_details()
+    
+    elif choice == '4':
+        title = input('Enter book Title: ').lower()
+        show_books_by('title', title)
+    
     elif choice == '5':
         show_library()
+    
     # elif choice == '6':
     #     sort_library()
     # elif choice == '7':
     #     mark_page()
+    
     elif choice == '8':
-        parameter = input('Choose parameter[Title, Date, Status, Author]: ').lower()
-        while parameter not in ['title', 'date', 'status', 'author']:       # input correction
+        parameter = input('Choose parameter[Date, Status, Author]: ').lower()
+        while parameter not in ['date', 'status', 'author']:       # input correction
             print('Please, Enter a valid choice !')
-            parameter = input('Choose parameter[Title, Date, Status, Author]: ').lower()
+            parameter = input('Choose parameter[Date, Status, Author]: ').lower()
 
         
         value = input('Enter value: ').lower()
         show_books_by(parameter, value)
-    # elif choice == '0':
-    #     Exit()
-    # elif choice == '00':
-    #     clear_screen()
+    
+    elif choice == '0':         # exiting Program using exit() function
+        exit()
+    
+    elif choice == '00':
+        clear_screen()
+        print('-----------------------------------------------')
+        print('-----------------Library App-------------------')
+    
     else:
         print('Enter a valid choice \n')
 
@@ -50,7 +64,7 @@ def add_new_book():         # Osama   # Adding book to Library
 
     database_a = open(r'D:\PROJECTS\Library Project\database.txt', 'a')
     database_a.write(formatting(title, Total_pages, start_date, author, status))
-    database_a.write('\n+-----------------------+---------------+-------+---------------+---------------+-----------------------+')
+    database_a.write('\n'+separating_line)
     database_a.close()
 
 def show_library():         # Osama   # Showing th Whole Library
@@ -93,26 +107,29 @@ def show_books_by(parameter, value):    # Osama         # Fin books with paramet
         'status' : 4,
         'author' : 5
     }
+    
     results = []       # Result books
 
     for line in lines:        # Search book by book
         whole_line = line
 
         line = line.replace('\t', '').split('|')      # Clearing line
-        line = removeAll(line, '')             #
+        line = removeAll(line, '')                    #
 
         for i in range(len(line)):
             line[i] = line[i].replace(' ', '', 1)              # Clearing each string from prefix space
 
         if len(line) > 1 and line[guide[parameter]].lower() == value:
-            results.append(whole_line)    
+            results.append(whole_line)
      
-
+    
     if results == []:             # Checking if results are found
         output('Not found')
     else:
+        output(table_header)
         for result in results:
-            output(result)        # output Found books
+            output('\n'+result)        # output Found books
+            output(separating_line)
     
     database.close()
 
@@ -122,3 +139,10 @@ def removeAll(list, value):     # Osama  # Removes all values From list
             list.remove(value)
 
     return list
+
+def clear_screen():             # Clearing Console using os library
+    import os
+    os.system('cls')
+
+
+

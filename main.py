@@ -19,10 +19,14 @@ while True:
     print('5) Show my Library')     # Done
     print('6) Sort my library')
     print('7) Mark page')
+    print('8) Find books by [Title, Date, Status, Author]')
     print('0) Exit')
     print('00) Clear Screen')
     print('-----------------------------------------------')
+    
 
     choice = input()
     check(choice)
+    
+    print('-----------------------------------------------')
 

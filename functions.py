@@ -1,11 +1,11 @@
 # Global Variables
 
-table_header = '''+-----------------------+---------------+-------+---------------+---------------+-----------------------+
-|			|		|	|		|		|			|
-| Title			| Pages		| per	| Date		| Status	| Author		|
-|			|		|	|		|		|			|
-+-----------------------+---------------+-------+---------------+---------------+-----------------------+'''
-separating_line = '+-----------------------+---------------+-------+---------------+---------------+-----------------------+'
+table_header = '''+-------------------------------+---------------+-------+---------------+---------------+-----------------------+
+|				|		|	|		|		|			|
+| Title				| Pages		| per	| Date		| Status	| Author		|
+|				|		|	|		|		|			|
++-------------------------------+---------------+-------+---------------+---------------+-----------------------+'''
+separating_line = '+-----------------------+---------------+-------+---------------+---------------+-----------------------++-------------------------------+---------------+-------+---------------+---------------+-----------------------+'
 parameters = ['title', 'pages', 'percent', 'date', 'status', 'author']
 guide = {    # Translating parameter into number
     'title' : 0,
@@ -119,7 +119,7 @@ def show_library():         # Osama   # Showing th Whole Library
         output(line)
 
 def formatting(title, totalPages, date, author, status, pages=0, percent=0):    # Osama     # generating line to be printed in a table shape
-    title_cell = cell_format(title, 3)
+    title_cell = cell_format(title, 4)
     pages_cell = cell_format(f'{pages}/{totalPages}', 2)
     percent_cell = cell_format(f'{percent}%', 1)
     date_cell = cell_format(date, 2)

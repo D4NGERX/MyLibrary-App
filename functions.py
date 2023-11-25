@@ -5,7 +5,7 @@ table_header = '''+-------------------------------+---------------+-------+-----
 | Title				| Pages		| per	| Date		| Status	| Author		|
 |				|		|	|		|		|			|
 +-------------------------------+---------------+-------+---------------+---------------+-----------------------+'''
-separating_line = '+-----------------------+---------------+-------+---------------+---------------+-----------------------++-------------------------------+---------------+-------+---------------+---------------+-----------------------+'
+separating_line = '+-------------------------------+---------------+-------+---------------+---------------+-----------------------+'
 parameters = ['title', 'pages', 'percent', 'date', 'status', 'author']
 guide = {    # Translating parameter into number
     'title' : 0,
@@ -100,11 +100,11 @@ def output(string):         # Osama   # Printing Values in both terminal and out
     output_file.close()
 
 def add_new_book():         # Osama   # Adding book to Library
-    title = input('Book title: ')
+    title = input('Book title: ').capitalize()
     Total_pages = input('Number of pages: ')
-    author = input('Author name: ')
+    author = input('Author name: ').capitalize()
     start_date = input('Start Date: ')
-    status = input('What is the status of the book ?[reading - wishlist - finished]: ')
+    status = input('What is the status of the book ?[reading - wishlist - finished]: ').capitalize()
 
     database_a = open(r'D:\PROJECTS\Library Project\database.txt', 'a')
     database_a.write(formatting(title, Total_pages, start_date, author, status))
@@ -134,8 +134,10 @@ def cell_format(string, number_of_tabs):    # Osama     # Generating Cell Shape
         string += '\t'*(number_of_tabs)
     elif len(string) < 14:
         string += '\t' * (number_of_tabs-1)
-    elif len(string) < 21 and number_of_tabs > 2:
+    elif len(string) < 22 and number_of_tabs > 2:
         string += '\t' * (number_of_tabs-2)
+    elif len(string) < 39 and number_of_tabs > 3:
+        string += '\t' * (number_of_tabs-3)
     else:
         string += ' '
 

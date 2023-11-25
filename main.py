@@ -14,7 +14,10 @@ while True:
     main_menu()
 
     choice = input()
-    check(choice)
+    try:
+        check(choice)
+    except:
+        print('Enter a Valid value!')
     
     print('\n-----------------------------------------------')
 

@@ -1,10 +1,36 @@
+# Global Variables
+
 table_header = '''+-----------------------+---------------+-------+---------------+---------------+-----------------------+
 |			|		|	|		|		|			|
 | Title			| Pages		| per	| Date		| Status	| Author		|
 |			|		|	|		|		|			|
 +-----------------------+---------------+-------+---------------+---------------+-----------------------+'''
 separating_line = '+-----------------------+---------------+-------+---------------+---------------+-----------------------+'
+parameters = ['title', 'pages', 'percent', 'date', 'status', 'author']
+guide = {    # Translating parameter into number
+    'title' : 0,
+    'pages' : 1,
+    'percent': 2,
+    'date' : 3,
+    'status' : 4,
+    'author' : 5
+}
 
+def main_menu():
+    print('-----------------------------------------------')
+    print('1) Add New book')       # Done
+    print('2) Remove book')
+    print('3) I read some pages')
+    print('4) Get book details')    # Done
+    print('5) Show my Library')     # Done
+    print('6) Sort my library')
+    print('7) Mark page')           
+    print('8) Find books by [Title, Date, Status, Author]') # Done
+    print('9) Modify book details') # Done
+    print('0) Exit')                # Done
+    print('00) Clear Screen')       # Done
+    print('-----------------------------------------------')
+    
 
 def check(choice):          # Osama   # Checking User Choice
     output_file = open(r'D:\PROJECTS\Library Project\output.txt', 'w') # Making Sure That output file is opened and clean
@@ -43,16 +69,26 @@ def check(choice):          # Osama   # Checking User Choice
         value = input('Enter value: ').lower()
         show_books_by(parameter, value)
     
-    # elif choice == '9':
-    #     modify(title, paramteter, modification)
+    elif choice == '9':
+        title = input('Enter book title: ').lower()
+        while not check_found(title):
+            print('Book not found !')
+            title = input('Enter book title: ').lower()
+        
+        parameter = input('Enter parameter to change: ').lower()
+        while parameter.lower() not in parameters:
+            print('Enter a valid choice!')
+            parameter = input('Enter parameter to change: ').lower()
+        modification = input('Enter new value: ')
+        modify(title, parameter, modification)
 
-    elif choice == '0':         # exiting Program using exit() function
+    elif choice == '0':         # exiting program using exit() function
         exit()
     
     elif choice == '00':
         clear_screen()
         print('-----------------------------------------------')
-        print('-----------------Library App-------------------')
+        print('-----------------Library App-------------------', end='')
     
     else:
         print('Enter a valid choice \n')
@@ -109,12 +145,7 @@ def show_books_by(parameter, value):    # Osama         # Find books with parame
     database = open(r'D:\PROJECTS\Library Project\database.txt', 'r') # Opening input file
     lines = database.readlines()
 
-    guide = {    # Translating parameter into number
-        'title' : 0,
-        'date' : 3,
-        'status' : 4,
-        'author' : 5
-    }
+    
     
     results = []       # Result books
 
@@ -154,9 +185,24 @@ def clear_screen():             # Clearing Console using os library
 
 
 def modify(title, parameter, new_value):
-    database = open(r'D:\PROJECTS\Library Project\database.txt', 'r') # Opening input file
-    lines = database.readlines()
-
+    books = get_books()
+    for i in range(len(books)):
+        if books[i][0].lower() == title:
+            books[i][guide[parameter]] = new_value
+            break
+    
+    database = open(r'D:\PROJECTS\Library Project\database.txt', 'w') # Clearing Database
+    database.write(table_header)                                      # Appending table Header
+    database.close()
+    database = open(r'D:\PROJECTS\Library Project\database.txt', 'a')
+    for book in books:  # Formatting lines to be printed in terminal and output.txt file
+        pages = book[1].split('/')  # Sparate pages read from total pages
+        database.write(formatting(book[0], pages[1], book[3], book[5], book[4], pages[0], book[2][:-1]))  # -1 for deleting % character as it is added by default in formatting() function
+        database.write('\n'+separating_line)  # Printing Separating Line
+    
+    output('Modification Done !\n')
+    database.close()
+    
 def get_books(): # Osama    # Get books details list
     books_details = []
     database = open(r'D:\PROJECTS\Library Project\database.txt', 'r') # Opening input file
@@ -174,5 +220,15 @@ def get_books(): # Osama    # Get books details list
 
 
     database.close()
-    return books_details
+    return books_details[1:]
+
+def check_found(title):
+    books = get_books()
+
+    for i in range(len(books)):
+        if books[i][0].lower() == title:
+            return True
+    
+    return False
+
 

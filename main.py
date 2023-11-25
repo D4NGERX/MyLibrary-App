@@ -1,7 +1,7 @@
 ###############################
 # Title: Library Program
 # Authors: Osama Ashraf & Muhammad Radwan
-# Version: v2.0
+# Version: v2.5
 # Description: -----
 ################################
 
@@ -11,20 +11,7 @@ print('-----------------------------------------------')
 print('-----------------Library App-------------------')
 
 while True:
-    print('-----------------------------------------------')
-    print('1) Add New book')       # Done
-    print('2) Remove book')
-    print('3) I read some pages')
-    print('4) Get book details')    # Done
-    print('5) Show my Library')     # Done
-    print('6) Sort my library')
-    print('7) Mark page')           
-    print('8) Find books by [Title, Date, Status, Author]') # Done
-    print('9) Modify book details') # To-Do # Here we go
-    print('0) Exit')                # Done
-    print('00) Clear Screen')       # Done
-    print('-----------------------------------------------')
-    
+    main_menu()
 
     choice = input()
     check(choice)

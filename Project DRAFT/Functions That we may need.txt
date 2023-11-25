@@ -1,5 +1,5 @@
 # input/Output functions
-/skip/ read_input()    ---> From file
+?--> read_input()    ---> From file
 + cell_format(size, string)  ---> make all strings with the same size to draw a table
 + output(string)  ---> print in both command line and output file
 
@@ -27,6 +27,6 @@ rate_book(book_name)   ---> Rate after reading
 
 + show_books_by(parameter) # Author - Name - Date - Stauts
 + show_book_details(bookName, what_you_want) # Marked Pages - Author - Date - Status
-Modify(bookName, Modification)
++ Modify(bookName, Modification)
 + clear_screen()
 + exit()

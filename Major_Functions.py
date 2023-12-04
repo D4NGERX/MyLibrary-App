@@ -95,11 +95,12 @@ def remove_book(book_title):                       # Mohamed   # Rmoving book by
     library = get_books()
     found = False
     for book in library:
-        if book[0] == book_title:
+        if book[0].lower() == book_title:
             found = True
             library.remove(book)
     if found:
         update_database(library)
+        print('Removed !')
     else:
         print('Not Found !')
 

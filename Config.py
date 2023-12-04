@@ -1,16 +1,20 @@
+# Files Locations
+DATABASE_PATH = r'D:\PROJECTS\Library Project\database.txt'
+OUTPUT_PATH = r'D:\PROJECTS\Library Project\output.txt'
+
 # Global Variables
 
-table_header = '''+-------------------------------+---------------+-------+---------------+---------------+-----------------------+
+TABLE_HEADER = '''+-------------------------------+---------------+-------+---------------+---------------+-----------------------+
 |				|		|	|		|		|			|
 | Title				| Pages		| per	| Date		| Status	| Author		|
 |				|		|	|		|		|			|
 +-------------------------------+---------------+-------+---------------+---------------+-----------------------+'''
 
-separating_line = '+-------------------------------+---------------+-------+---------------+---------------+-----------------------+'
+SEPARATING_LINE = '+-------------------------------+---------------+-------+---------------+---------------+-----------------------+'
 
-parameters = ['title', 'pages', 'percent', 'date', 'status', 'author']
+PARAMETERS = ['title', 'pages', 'percent', 'date', 'status', 'author']
 
-guide = {    # Translating parameter into number
+GUIDE = {    # Translating parameter into number
     'title' : 0,
     'pages' : 1,
     'percent': 2,
@@ -19,12 +23,12 @@ guide = {    # Translating parameter into number
     'author' : 5
 }
 
-title_col_width = 4
-pages_col_width = 2
-percent_col_width = 1
-date_col_width = 2
-status_col_width = 2
-author_col_width = 3
+TITLE_COL_WIDTH = 4
+PAGES_COL_WIDTH = 2
+PERCENT_COL_WIDTH = 1
+DATE_COL_WIDTH = 2
+STATUS_COL_WIDTH = 2
+AUTHOR_COL_WIDTH = 3
 
 
 

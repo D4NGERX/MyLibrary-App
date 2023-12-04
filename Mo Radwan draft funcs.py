@@ -88,14 +88,7 @@ def rating_after_finishing(library, choose):
 def remove                (library):
     choose = choose_book(library)
     library.remove(library[choose - 1])
-
-def remove_by_search(library):
-    book_name = input("Book Name: ")
-    for book in library:
-        if book["book name"] == book_name:
-            library.remove(book)
-            return library
-    return library
+ 
 
 def edit                  (library):
     choose = choose_book(library)

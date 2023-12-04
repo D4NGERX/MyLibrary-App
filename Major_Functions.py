@@ -23,7 +23,7 @@ def check(choice):          # Osama   # Checking User Choice
         add_new_book()
     
     elif choice == '2':
-        book_title = input("Book Title: ")
+        book_title = input("Book Title: ").lower()
         remove_book(book_title)
     # elif choice == '3':
     #     read_pages()
@@ -93,11 +93,15 @@ def add_new_book():         # Osama   # Adding book to Library
 
 def remove_book(book_title):
     library = get_books()
+    found = False
     for book in library:
-        if book["book name"] == book_title:
+        if book[0] == book_title:
+            found = True
             library.remove(book)
-            return library
-    return library
+    if found:
+        update_library(library)
+    else:
+        print('Not Found !')
 
 
 def show_library():         # Osama   # Showing th Whole Library

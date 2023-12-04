@@ -25,13 +25,13 @@ def check(choice):                                 # Osama     # Checking User C
     elif choice == '2':
         book_title = input("Book Title: ").lower()
         remove_book(book_title)
-    # elif choice == '3':
-    #     read_pages()
-    #     calc_percent()
-    #     modify(title, new_percent)
-    #     if percent == 100:
-    #           modify(title, status, 'Finished')
-    #           rate_book(title)
+    elif choice == '3':
+        read_pages()
+        calc_percent()
+        modify(title, new_percent)
+        if percent == 100:
+              modify(title, status, 'Finished')
+              rate_book(title)
     
     elif choice == '4':
         title = input('Enter book Title: ').lower()

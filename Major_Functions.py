@@ -2,7 +2,7 @@ from Config import *
 from Style  import *
 from Minor_Functions import *
 
-def main_menu():            # Osama   # Printing Main Menu
+def main_menu():                                   # Osama     # Printing Main Menu
     print('-----------------------------------------------')
     print('1) Add New book')       # Done
     print('2) Remove book')        # Under Dev
@@ -17,7 +17,7 @@ def main_menu():            # Osama   # Printing Main Menu
     print('00) Clear Screen')       # Done
     print('-----------------------------------------------')
 
-def check(choice):          # Osama   # Checking User Choice
+def check(choice):                                 # Osama     # Checking User Choice
     output_file = open(r'D:\PROJECTS\Library Project\output.txt', 'w') # Making Sure That output file is opened and clean
     if choice == '1':
         add_new_book()
@@ -79,19 +79,19 @@ def check(choice):          # Osama   # Checking User Choice
     else:
         print('Enter a valid choice \n')
 
-def add_new_book():         # Osama   # Adding book to Library
+def add_new_book():                                # Osama     # Adding book to Library
     title = input('Book title: ').capitalize()
     Total_pages = input('Number of pages: ')
     author = input('Author name: ').capitalize()
     start_date = input('Start Date: ')
     status = input('What is the status of the book ?[reading - wishlist - finished]: ').capitalize()
 
-    database_a = open(r'D:\PROJECTS\Library Project\database.txt', 'a')
+    database_a = open(database_path, 'a')
     database_a.write(formatting(title, Total_pages, start_date, author, status))
     database_a.write('\n'+separating_line)
     database_a.close()
 
-def remove_book(book_title):
+def remove_book(book_title):                       # Mohamed   # Rmoving book by entering its title
     library = get_books()
     found = False
     for book in library:
@@ -99,20 +99,19 @@ def remove_book(book_title):
             found = True
             library.remove(book)
     if found:
-        update_library(library)
+        update_database(library)
     else:
         print('Not Found !')
 
-
-def show_library():         # Osama   # Showing th Whole Library
-    database = open(r'D:\PROJECTS\Library Project\database.txt', 'r')
+def show_library():                                # Osama     # Showing th Whole Library
+    database = open(database_path, 'r')
     lines = database.readlines()
 
     for line in lines:
         output(line)
 
-def show_books_by(parameter, value):    # Osama         # Find books with parameter value
-    database = open(r'D:\PROJECTS\Library Project\database.txt', 'r') # Opening input file
+def show_books_by(parameter, value):               # Osama     # Find books with parameter value
+    database = open(database_path, 'r') # Opening input file
     lines = database.readlines()
 
     
@@ -149,7 +148,7 @@ def modify(title, parameter, new_value):
             library[i][guide[parameter]] = new_value
             break
     
-    update_library(library)
+    update_database(library)
     print('Modification Done !\n')
     
   

@@ -1,3 +1,6 @@
+# Files Locations
+database_path = r'D:\PROJECTS\Library Project\database.txt'
+
 # Global Variables
 
 table_header = '''+-------------------------------+---------------+-------+---------------+---------------+-----------------------+

@@ -90,7 +90,7 @@ def add_new_book():         # Osama   # Adding book to Library
     database_a.write('\n'+separating_line)
     database_a.close()
 
-def show_library():         # Osama   # Showing th Whole Library
+def show_library():          # Osama   # Showing th Whole Library
     database = open(r'D:\PROJECTS\Library Project\database.txt', 'r')
     lines = database.readlines()
 

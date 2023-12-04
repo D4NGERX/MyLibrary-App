@@ -3,7 +3,7 @@ from Style import *
 
 def get_books(): # Osama    # Get books details list
     books_details = []
-    database = open(database_path, 'r') # Opening input file
+    database = open(DATABASE_PATH, 'r') # Opening input file
     lines = database.readlines()
     for line in lines:
         line = line.replace('\t', '').split('|')      # Clearing line
@@ -21,7 +21,7 @@ def get_books(): # Osama    # Get books details list
     return books_details[1:]
 
 def output(string):         # Osama   # Printing Values in both terminal and output.txt file
-    output_file = open(r'D:\PROJECTS\Library Project\output.txt', 'a')
+    output_file = open(OUTPUT_PATH, 'a')
     print(string, end='')
     output_file.write(string)
     output_file.close()
@@ -43,14 +43,14 @@ def removeAll(list, value):     # Osama     # Removes all (value) from a list
     return list
 
 def update_database(library):
-    database = open(database_path, 'w') # Clearing Database
-    database.write(table_header)                                      # Appending table Header
+    database = open(DATABASE_PATH, 'w') # Clearing Database
+    database.write(TABLE_HEADER)                                      # Appending table Header
     database.close()
-    database = open(database_path, 'a')
+    database = open(DATABASE_PATH, 'a')
     for book in library:  # Formatting lines to be printed in terminal and output.txt file
         pages = book[1].split('/')  # Sparate pages read from total pages
         database.write(formatting(book[0], pages[1], book[3], book[5], book[4], pages[0], book[2][:-1]))  # -1 for deleting % character as it is added by default in formatting() function
-        database.write('\n'+separating_line)  # Printing Separating Line
+        database.write('\n'+SEPARATING_LINE)  # Printing Separating Line
 
     database.close()
     

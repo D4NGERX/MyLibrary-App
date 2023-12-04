@@ -18,7 +18,7 @@ def main_menu():                                   # Osama     # Printing Main M
     print('-----------------------------------------------')
 
 def check(choice):                                 # Osama     # Checking User Choice
-    output_file = open(r'D:\PROJECTS\Library Project\output.txt', 'w') # Making Sure That output file is opened and clean
+    output_file = open(OUTPUT_PATH, 'w') # Making Sure That output file is opened and clean
     if choice == '1':
         add_new_book()
     
@@ -62,7 +62,7 @@ def check(choice):                                 # Osama     # Checking User C
             title = input('Enter book title: ').lower()
         
         parameter = input('Enter parameter to change: ').lower()
-        while parameter.lower() not in parameters:
+        while parameter.lower() not in PARAMETERS:
             print('Enter a valid choice!')
             parameter = input('Enter parameter to change: ').lower()
         modification = input('Enter new value: ')
@@ -86,9 +86,9 @@ def add_new_book():                                # Osama     # Adding book to 
     start_date = input('Start Date: ')
     status = input('What is the status of the book ?[reading - wishlist - finished]: ').capitalize()
 
-    database_a = open(database_path, 'a')
+    database_a = open(DATABASE_PATH, 'a')
     database_a.write(formatting(title, Total_pages, start_date, author, status))
-    database_a.write('\n'+separating_line)
+    database_a.write('\n' + SEPARATING_LINE)
     database_a.close()
 
 def remove_book(book_title):                       # Mohamed   # Rmoving book by entering its title
@@ -104,14 +104,14 @@ def remove_book(book_title):                       # Mohamed   # Rmoving book by
         print('Not Found !')
 
 def show_library():                                # Osama     # Showing th Whole Library
-    database = open(database_path, 'r')
+    database = open(DATABASE_PATH, 'r')
     lines = database.readlines()
 
     for line in lines:
         output(line)
 
 def show_books_by(parameter, value):               # Osama     # Find books with parameter value
-    database = open(database_path, 'r') # Opening input file
+    database = open(DATABASE_PATH, 'r') # Opening input file
     lines = database.readlines()
 
     
@@ -127,17 +127,17 @@ def show_books_by(parameter, value):               # Osama     # Find books with
         for i in range(len(line)):
             line[i] = line[i].replace(' ', '', 1)              # Clearing each string from prefix space
 
-        if len(line) > 1 and line[guide[parameter]].lower() == value:
+        if len(line) > 1 and line[GUIDE[parameter]].lower() == value:
             results.append(whole_line)
      
     
     if results == []:             # Checking if results are found
         output('Not found')
     else:
-        output(table_header)
+        output(TABLE_HEADER)
         for result in results:
             output('\n'+result)        # output Found books
-            output(separating_line)
+            output(SEPARATING_LINE)
     
     database.close()
 
@@ -145,7 +145,7 @@ def modify(title, parameter, new_value):
     library = get_books()
     for i in range(len(library)):
         if library[i][0].lower() == title:
-            library[i][guide[parameter]] = new_value
+            library[i][GUIDE[parameter]] = new_value
             break
     
     update_database(library)

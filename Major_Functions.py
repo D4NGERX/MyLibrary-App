@@ -22,8 +22,9 @@ def check(choice):          # Osama   # Checking User Choice
     if choice == '1':
         add_new_book()
     
-    # elif choice == '2':
-    #     remove_book()
+    elif choice == '2':
+        book_title = input("Book Title: ")
+        remove_book(book_title)
     # elif choice == '3':
     #     read_pages()
     #     calc_percent()
@@ -90,6 +91,15 @@ def add_new_book():         # Osama   # Adding book to Library
     database_a.write('\n'+separating_line)
     database_a.close()
 
+def remove_book(book_title):
+    library = get_books()
+    for book in library:
+        if book["book name"] == book_title:
+            library.remove(book)
+            return library
+    return library
+
+
 def show_library():         # Osama   # Showing th Whole Library
     database = open(r'D:\PROJECTS\Library Project\database.txt', 'r')
     lines = database.readlines()
@@ -129,41 +139,15 @@ def show_books_by(parameter, value):    # Osama         # Find books with parame
     database.close()
 
 def modify(title, parameter, new_value):
-    books = get_books()
-    for i in range(len(books)):
-        if books[i][0].lower() == title:
-            books[i][guide[parameter]] = new_value
+    library = get_books()
+    for i in range(len(library)):
+        if library[i][0].lower() == title:
+            library[i][guide[parameter]] = new_value
             break
     
-    database = open(r'D:\PROJECTS\Library Project\database.txt', 'w') # Clearing Database
-    database.write(table_header)                                      # Appending table Header
-    database.close()
-    database = open(r'D:\PROJECTS\Library Project\database.txt', 'a')
-    for book in books:  # Formatting lines to be printed in terminal and output.txt file
-        pages = book[1].split('/')  # Sparate pages read from total pages
-        database.write(formatting(book[0], pages[1], book[3], book[5], book[4], pages[0], book[2][:-1]))  # -1 for deleting % character as it is added by default in formatting() function
-        database.write('\n'+separating_line)  # Printing Separating Line
+    update_library(library)
+    print('Modification Done !\n')
     
-    output('Modification Done !\n')
-    database.close()
   
-def get_books(): # Osama    # Get books details list
-    books_details = []
-    database = open(r'D:\PROJECTS\Library Project\database.txt', 'r') # Opening input file
-    lines = database.readlines()
-    for line in lines:
-        line = line.replace('\t', '').split('|')      # Clearing line
-        line = removeAll(line, '')                    #
-        line = removeAll(line, '\n')
-
-        for i in range(len(line)):
-            line[i] = line[i].replace(' ', '', 1)              # Clearing each string from prefix space
-
-        if len(line) > 1:
-            books_details.append(line)
-
-
-    database.close()
-    return books_details[1:]
 
 

@@ -5,7 +5,7 @@
 # Description: -----
 ################################
 
-from functions import *
+from Major_Functions import *
 
 print('-----------------------------------------------')
 print('-----------------Library App-------------------')

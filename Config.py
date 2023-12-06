@@ -16,7 +16,7 @@ def generateLine(title, pages, percent, date, status, author):
 
 
 
-SEPARATING_LINE = '+-------------------------------+---------------+-------+---------------+---------------+-----------------------+'
+SEPARATING_LINE = generateLine(TITLE_COL_WIDTH, PAGES_COL_WIDTH, PERCENT_COL_WIDTH, DATE_COL_WIDTH, STATUS_COL_WIDTH, AUTHOR_COL_WIDTH)
 
 
 TABLE_HEADER = f'''{SEPARATING_LINE}

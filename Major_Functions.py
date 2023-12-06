@@ -86,6 +86,8 @@ def add_new_book():                                # Osama     # Adding book to 
     start_date = input('Start Date: ')
     status = input('What is the status of the book ?[reading - wishlist - finished]: ').capitalize()
 
+    update_database(get_books())
+
     database_a = open(DATABASE_PATH, 'a')
     database_a.write(formatting(title, Total_pages, start_date, author, status))
     database_a.write('\n' + SEPARATING_LINE)
@@ -105,6 +107,7 @@ def remove_book(book_title):                       # Mohamed   # Rmoving book by
         print('Not Found !')
 
 def show_library():                                # Osama     # Showing th Whole Library
+    update_database(get_books())
     database = open(DATABASE_PATH, 'r')
     lines = database.readlines()
 

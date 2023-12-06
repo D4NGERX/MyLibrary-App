@@ -10,6 +10,12 @@ DATE_COL_WIDTH = 2
 STATUS_COL_WIDTH = 2
 AUTHOR_COL_WIDTH = 3
 
+def generateLine(title, pages, percent, date, status, author):
+    BAR = '-------'
+    return f'+{BAR*title + '-'*(title-1)}+{BAR*pages + '-'*(pages-1)}+{BAR*percent + '-'*(percent-1)}+{BAR*date + '-'*(date-1)}+{BAR*status + '-'*(status-1)}+{BAR*author + '-'*(author-1)}+'
+
+
+
 SEPARATING_LINE = '+-------------------------------+---------------+-------+---------------+---------------+-----------------------+'
 
 

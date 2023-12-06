@@ -14,9 +14,9 @@ SEPARATING_LINE = '+-------------------------------+---------------+-------+----
 
 
 TABLE_HEADER = f'''{SEPARATING_LINE}
-|				|		|	|		|		|			|
-| Title				| Pages		| per	| Date		| Status	| Author		|
-|				|		|	|		|		|			|
+|{TITLE_COL_WIDTH * '\t'}|{PAGES_COL_WIDTH * '\t'}|{PERCENT_COL_WIDTH * '\t'}|{DATE_COL_WIDTH * '\t'}|{STATUS_COL_WIDTH * '\t'}|{AUTHOR_COL_WIDTH * '\t'}|
+| Title{TITLE_COL_WIDTH * '\t'}| Pages{PAGES_COL_WIDTH * '\t'}| per{PERCENT_COL_WIDTH * '\t'}| Date{DATE_COL_WIDTH * '\t'}| Status{(STATUS_COL_WIDTH-1) * '\t'}| Author{(AUTHOR_COL_WIDTH-1) * '\t'}|
+|{TITLE_COL_WIDTH * '\t'}|{PAGES_COL_WIDTH * '\t'}|{PERCENT_COL_WIDTH * '\t'}|{DATE_COL_WIDTH * '\t'}|{STATUS_COL_WIDTH * '\t'}|{AUTHOR_COL_WIDTH * '\t'}|
 {SEPARATING_LINE}'''
 
 

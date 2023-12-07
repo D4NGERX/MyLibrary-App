@@ -25,13 +25,8 @@ def check(choice):                                 # Osama     # Checking User C
     elif choice == '2':
         book_title = input("Book Title: ").lower()
         remove_book(book_title)
-    # elif choice == '3':
-    #     read_pages()
-    #     calc_percent()
-    #     modify(title, new_percent)
-    #     if percent == 100:
-    #           modify(title, status, 'Finished')
-    #           rate_book(title)
+    elif choice == '3':
+        read()
     
     elif choice == '4':
         title = input('Enter book Title: ').lower()
@@ -155,6 +150,14 @@ def modify(title, parameter, new_value):
     update_database(library)
     print('Modification Done !\n')
     
-  
+def read (library):
+    library = get_books()
+    choose = choose_book(library)
+    readpages = integer_only("Enter the number of pages you have read: ", "Please enter the number of pages as an integer only")
+    old_pages = library[choose - 1]['book pages'].split('/')[0]
+    total_pages = library[choose - 1]['book pages'].split('/')[1]
+    library[choose - 1]["book pages"] = f"{old_pages+readpages} / {total_pages}"
+    clac_percentage(library, choose)
+
 
 

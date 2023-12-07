@@ -1,29 +1,6 @@
 MyLibrary = []
 
-def choose_book           (library):
-    books_list = []
-    for book in library:
-        books_list.append(book["book name"])
-    print("Choose the book: ")
-    for book in range(len(books_list)):
-        print(f"{book + 1}. {books_list[book]}")
-    while True:
-            try:
-               choose = integer_only("Choose book: ", "INVALID! Integers only")
-               if 0 < choose <= len(books_list) :
-                   break
-            except:
-                print("OUT OF RANGE! Choose one of the above options") 
-    return choose
 
-def integer_only          (instructions, Error_Massage):
-    while True:
-            try:
-                variable = int(input(instructions))
-                break
-            except:
-                print(Error_Massage)
-    return variable
 
 def date_format           (instructions, Error_Massage):
     while True:
@@ -56,22 +33,9 @@ def add                   (Library):
     }
     Library.append(book_details)
 
-def read                  (library):
 
-    choose                            = choose_book(library)
-    readpages                         = integer_only("Enter the number of pages you have read: ", "Please enter the number of pages as an integer only")
-    library[choose - 1]["book pages"] = f"{readpages} / {library[choose - 1]['book pages'].split(' / ')[1]}"
-    percentage(MyLibrary, choose)
 
-def percentage            (library, choose):
-     library[choose - 1]["percentage"] = f"{int((int(library[choose - 1]['book pages'].split(' / ')[0]) / int(library[choose - 1]['book pages'].split(' / ')[1])) * 100)}%"
-     full_percentage(library, choose)
 
-def full_percentage       (library, choose):
-    if library[choose - 1]["book pages"].split(" / ")[0] == library[choose - 1]["book pages"].split(" / ")[1]:
-        print("Congratiolatins!! You have finished the book")
-        library[choose - 1]["status"] = "finished"
-        rating_after_finishing(library,choose)
 
 def rating_after_finishing(library, choose):
     while True:
@@ -85,10 +49,6 @@ def rating_after_finishing(library, choose):
                 print("Please enter the rating as an integer from 1 to 10 only")
     library[choose - 1]["rating"] = f"{rating} / 10"
 
-def remove                (library):
-    choose = choose_book(library)
-    library.remove(library[choose - 1])
- 
 
 def edit                  (library):
     choose = choose_book(library)

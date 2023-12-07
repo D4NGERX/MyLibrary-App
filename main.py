@@ -13,10 +13,8 @@ print('-----------------Library App-------------------')
 while True:
     main_menu()
     choice = input()
-    try:
-        check(choice)
-    except:
-        print('Enter a Valid value!')
+    
+    check(choice)
     
     print('\n-----------------------------------------------')
 

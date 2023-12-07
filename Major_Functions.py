@@ -69,6 +69,7 @@ def check(choice):                                 # Osama     # Checking User C
         modify(title, parameter, modification)
 
     elif choice == '0':         # exiting program using exit() function
+        print('Bye !')
         exit()
     
     elif choice == '00':

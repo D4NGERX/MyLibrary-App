@@ -1,6 +1,6 @@
-# Files Locations
-DATABASE_PATH = r'D:\PROJECTS\Library Project\database.txt'
-OUTPUT_PATH = r'D:\PROJECTS\Library Project\output.txt'
+# Files Paths
+DATABASE_PATH = 'database.txt'
+OUTPUT_PATH = 'output.txt'
 
 # Global Variables
 TITLE_COL_WIDTH = 4
@@ -37,7 +37,12 @@ GUIDE = {    # Translating parameter into number
     'author' : 5
 }
 
-
+TITLE = GUIDE['title']
+PAGES = GUIDE['pages']
+PERCENT = GUIDE['percent']
+DATE = GUIDE['date']
+STATUS = GUIDE['status']
+AUTHOR = GUIDE['author']
 
 
 

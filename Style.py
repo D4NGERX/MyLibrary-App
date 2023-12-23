@@ -1,6 +1,6 @@
 from Config import *
 
-def cell_format(string, number_of_tabs):    # Osama     # Generating Cell Shape
+def cell_format(string, number_of_tabs):            # Generating Cell Shape
     if len(string) < 6:
         string += '\t'*(number_of_tabs)
     elif len(string) < 14:
@@ -14,7 +14,7 @@ def cell_format(string, number_of_tabs):    # Osama     # Generating Cell Shape
 
     return string
 
-def formatting(title, totalPages, date, author, status, pages=0, percent=0):    # Osama     # generating line to be printed in a table shape
+def formatting(title, totalPages, date, author, status, pages=0, percent=0):    # generating line to be printed in a table shape
     title_cell = cell_format(title, TITLE_COL_WIDTH)
     pages_cell = cell_format(f'{pages}/{totalPages}', PAGES_COL_WIDTH)
     percent_cell = cell_format(f'{percent}%', PERCENT_COL_WIDTH)
@@ -25,7 +25,7 @@ def formatting(title, totalPages, date, author, status, pages=0, percent=0):    
     result = f'\n| {title_cell}| {pages_cell}| {percent_cell}| {date_cell}| {status_cell}| {author_cell}|'
     return result
 
-def clear_screen():                         # Osama     # Clearing Console using os library
+def clear_screen():                         # Clearing Console using os library
     import os
     os.system('cls')
 

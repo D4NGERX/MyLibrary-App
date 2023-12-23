@@ -2,22 +2,22 @@ from Config import *
 from Style  import *
 from Minor_Functions import *
 
-def main_menu():                                   # Osama     # Printing Main Menu
+def main_menu():                                   # Printing Main Menu
     print('-----------------------------------------------')
-    print('1) Add New book')       # Done
-    print('2) Remove book')        # Under Dev
-    print('3) I read some pages')   #Done
+    print('1) Add New book')        # Done
+    print('2) Remove book')         # Done
+    print('3) I read some pages')   # Done
     print('4) Get book details')    # Done
     print('5) Show my Library')     # Done
     print('6) Sort my library')     # Under Dev
-    print('7) Mark page')           
+    print('7) Mark page')           # Under Dev
     print('8) Find books by [Title, Date, Status, Author]') # Done
     print('9) Modify book details') # Done
     print('0) Exit')                # Done
     print('00) Clear Screen')       # Done
     print('-----------------------------------------------')
 
-def check(choice):                                 # Osama     # Checking User Choice
+def check(choice):                                 # Checking User Choice
     output_file = open(OUTPUT_PATH, 'w') # Making Sure That output file is opened and clean
     if choice == '1':
         add_new_book()
@@ -77,7 +77,7 @@ def check(choice):                                 # Osama     # Checking User C
     else:
         print('Enter a valid choice \n')
 
-def add_new_book():                                # Osama     # Adding book to Library
+def add_new_book():                                # Adding book to Library
     title = input('Book title: ').capitalize()
     Total_pages = input('Number of pages: ')
     author = input('Author name: ').capitalize()
@@ -91,7 +91,7 @@ def add_new_book():                                # Osama     # Adding book to 
     database_a.write('\n' + SEPARATING_LINE)
     database_a.close()
 
-def remove_book(book_title):                       # Mohamed   # Rmoving book by entering its title
+def remove_book(book_title):                       # Rmoving book by entering its title
     library = get_books()
     found = False
     for book in library:
@@ -104,7 +104,7 @@ def remove_book(book_title):                       # Mohamed   # Rmoving book by
     else:
         print('Not Found !')
 
-def show_library():                                # Osama     # Showing th Whole Library
+def show_library():                                # Showing th Whole Library
     update_database(get_books())
     database = open(DATABASE_PATH, 'r')
     lines = database.readlines()
@@ -112,7 +112,7 @@ def show_library():                                # Osama     # Showing th Whol
     for line in lines:
         output(line)
 
-def show_books_by(parameter, value):               # Osama     # Find books with parameter value
+def show_books_by(parameter, value):               # Find books with parameter value
     database = open(DATABASE_PATH, 'r') # Opening input file
     lines = database.readlines()
 
@@ -143,7 +143,7 @@ def show_books_by(parameter, value):               # Osama     # Find books with
     
     database.close()
 
-def modify(title, parameter, new_value):
+def modify(title, parameter, new_value):           # Modify any value by book title
     library = get_books()
     for i in range(len(library)):
         if library[i][0].lower() == title:
@@ -153,7 +153,7 @@ def modify(title, parameter, new_value):
     update_database(library)
     print('Modification Done !\n')
     
-def read(choose):
+def read(choose):                                  # Updating count of read pages and percentage after reading some pages
     library = get_books()
     readpages = integer_only("Enter the number of pages you have read: ", "Please enter the number of pages as an integer only")
     current_readpages = int(library[choose - 1][PAGES].split('/')[0])

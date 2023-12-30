@@ -78,11 +78,11 @@ def check(choice):                                 # Checking User Choice
         print('Enter a valid choice \n')
 
 def add_new_book():                                # Adding book to Library
-    title = input('Book title: ').capitalize()
+    title = input('Book title: ').title()
     Total_pages = input('Number of pages: ')
-    author = input('Author name: ').capitalize()
-    start_date = input('Start Date: ')
-    status = input('What is the status of the book ?[reading - wishlist - finished]: ').capitalize()
+    author = input('Author name: ').title()
+    start_date = get_correct_date_format('Start Date: ', 'Please, Enter a valid date')
+    status = input('What is the status of the book ?[reading - wishlist - finished]: ').title()
 
     update_database(get_books())
 
@@ -162,6 +162,6 @@ def read(choose):                                  # Updating count of read page
     calc_percentage(choose)
 
     update_database(library)
-  
+
 
 

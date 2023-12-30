@@ -43,6 +43,11 @@ def removeAll(list, value):                         # Removes all (value) from a
     return list
 
 def update_database(library):                       # Update Database after any modification
+    """ Update Database after any modification
+
+    Args:
+        library (list): list of books after any modification
+    """
     database = open(DATABASE_PATH, 'w') # Clearing Database
     database.write(TABLE_HEADER)        # Appending table Header
     database.close()
@@ -102,3 +107,30 @@ def choose_book():                                  # List books for user and as
                 print("OUT OF RANGE! Choose one of the above options") 
     return choose
 
+def get_correct_date_format(instructions, Error_Massage): # Making sure that user entered a valid date
+    """Making sure that user entered a valid date
+
+    Args:
+        instructions (string): Message to enter date
+        Error_Massage (string): Meassage when invalid date detected
+
+    Returns:
+        string: Correct Date
+    """
+    while True:
+        date = input(instructions)
+        chunks = date.split('/')
+        if len(date) != 3:
+            print(Error_Massage)
+        else:
+            DD, MM, YYYY = [int(chunk) for chunk in chunks]        # Separating chunks of date and convert it to integer values
+            
+            if DD > 31 or MM > 12 or YYYY < 1000:
+                print(Error_Massage)
+
+            else:
+                break
+
+
+
+    return date

@@ -26,23 +26,17 @@ TABLE_HEADER = f'''{SEPARATING_LINE}
 {SEPARATING_LINE}'''
 
 
-PARAMETERS = ['title', 'pages', 'percent', 'date', 'status', 'author']
+PARAMETERS = ['Title', 'Pages', 'Percent', 'Date', 'Status', 'Author']
 
-GUIDE = {    # Translating parameter into number
-    'title' : 0,
-    'pages' : 1,
-    'percent': 2,
-    'date' : 3,
-    'status' : 4,
-    'author' : 5
-}
+GUIDE = dict(zip(PARAMETERS, range(len(PARAMETERS))))
 
-TITLE = GUIDE['title']
-PAGES = GUIDE['pages']
-PERCENT = GUIDE['percent']
-DATE = GUIDE['date']
-STATUS = GUIDE['status']
-AUTHOR = GUIDE['author']
+TITLE = GUIDE['Title']
+PAGES = GUIDE['Pages']
+PERCENT = GUIDE['Percent']
+DATE = GUIDE['Date']
+STATUS = GUIDE['Status']
+AUTHOR = GUIDE['Author']
+
 
 
 

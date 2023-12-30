@@ -30,7 +30,7 @@ def check_found(title):                             # Check if book is in ddatab
     books = get_books()
 
     for i in range(len(books)):
-        if books[i][0].lower() == title:
+        if books[i][0].title() == title:
             return True
     
     return False
@@ -120,11 +120,10 @@ def get_correct_date_format(instructions, Error_Massage): # Making sure that use
     while True:
         date = input(instructions)
         chunks = date.split('/')
-        if len(date) != 3:
+        if len(chunks) != 3:
             print(Error_Massage)
         else:
             DD, MM, YYYY = [int(chunk) for chunk in chunks]        # Separating chunks of date and convert it to integer values
-            
             if DD > 31 or MM > 12 or YYYY < 1000:
                 print(Error_Massage)
 

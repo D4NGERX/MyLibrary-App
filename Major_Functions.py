@@ -23,15 +23,16 @@ def check(choice):                                 # Checking User Choice
         add_new_book()
     
     elif choice == '2':
-        book_title = input("Book Title: ").lower()
+        book_title = input("Book Title: ").title()
         remove_book(book_title)
+        
     elif choice == '3':
         choose = choose_book()
         read(choose)
         calc_percentage(choose)
     
     elif choice == '4':
-        title = input('Enter book Title: ').lower()
+        title = input('Enter book Title: ').title()
         show_books_by('title', title)
     
     elif choice == '5':
@@ -43,25 +44,25 @@ def check(choice):                                 # Checking User Choice
     #     mark_page()
     
     elif choice == '8':
-        parameter = input('Choose parameter[Date, Status, Author]: ').lower()
-        while parameter not in ['date', 'status', 'author']:       # input correction
+        parameter = input('Choose parameter[Date, Status, Author]: ').title()
+        while parameter not in PARAMETERS:       # input correction
             print('Please, Enter a valid choice !')
-            parameter = input('Choose parameter[Date, Status, Author]: ').lower()
+            parameter = input('Choose parameter[Date, Status, Author]: ').title()
 
         
-        value = input('Enter value: ').lower()
+        value = input('Enter value: ').title()
         show_books_by(parameter, value)
     
     elif choice == '9':
-        title = input('Enter book title: ').lower()
+        title = input('Enter book title: ').title()
         while not check_found(title):
             print('Book not found !')
-            title = input('Enter book title: ').lower()
+            title = input('Enter book title: ').title()
         
-        parameter = input('Enter parameter to change: ').lower()
-        while parameter.lower() not in PARAMETERS:
+        parameter = input('Enter parameter to change: ').title()
+        while parameter.title() not in PARAMETERS:
             print('Enter a valid choice!')
-            parameter = input('Enter parameter to change: ').lower()
+            parameter = input('Enter parameter to change: ').title()
         modification = input('Enter new value: ')
         modify(title, parameter, modification)
 
@@ -78,24 +79,42 @@ def check(choice):                                 # Checking User Choice
         print('Enter a valid choice \n')
 
 def add_new_book():                                # Adding book to Library
-    title = input('Book title: ').title()
+    while True:                     # Making sure that book doesn't exist
+        title = input('Book title: ').title()
+        if not check_found(title):
+            break
+        print('Book already exists !')
+
     Total_pages = input('Number of pages: ')
     author = input('Author name: ').title()
     start_date = get_correct_date_format('Start Date: ', 'Please, Enter a valid date')
-    status = input('What is the status of the book ?[reading - wishlist - finished]: ').title()
+    while True:
+        try:
+            status = input('What is the status of the book ?[reading - wishlist - finished]: ').title()
+            if status in ['Reading', 'Wishlist', 'Finished']:
+                break
+        except:
+            print('Please, Enter a valid choice !')
 
-    update_database(get_books())
+    read_pages = 0
+    if status == 'Finished':
+        read_pages = Total_pages
+    elif status == 'Reading':
+        read_pages = integer_only('Number of read pages: ', 'Please, Enter the number of pages:')
+
 
     database_a = open(DATABASE_PATH, 'a')
-    database_a.write(formatting(title, Total_pages, start_date, author, status))
+    database_a.write(formatting(title, Total_pages, start_date, author, status, read_pages))
     database_a.write('\n' + SEPARATING_LINE)
     database_a.close()
+
+    calc_percentage(len(get_books()))
 
 def remove_book(book_title):                       # Rmoving book by entering its title
     library = get_books()
     found = False
     for book in library:
-        if book[0].lower() == book_title:
+        if book[0].title() == book_title:
             found = True
             library.remove(book)
     if found:
@@ -129,7 +148,7 @@ def show_books_by(parameter, value):               # Find books with parameter v
         for i in range(len(line)):
             line[i] = line[i].replace(' ', '', 1)              # Clearing each string from prefix space
 
-        if len(line) > 1 and line[GUIDE[parameter]].lower() == value:
+        if len(line) > 1 and line[GUIDE[parameter]].title() == value:
             results.append(whole_line)
      
     
@@ -146,7 +165,7 @@ def show_books_by(parameter, value):               # Find books with parameter v
 def modify(title, parameter, new_value):           # Modify any value by book title
     library = get_books()
     for i in range(len(library)):
-        if library[i][0].lower() == title:
+        if library[i][0].title() == title:
             library[i][GUIDE[parameter]] = new_value
             break
     
@@ -159,6 +178,7 @@ def read(choose):                                  # Updating count of read page
     current_readpages = int(library[choose - 1][PAGES].split('/')[0])
     total_pages = library[choose - 1][PAGES].split('/')[1]
     library[choose - 1][PAGES] = f"{current_readpages+readpages}/{total_pages}"
+    library[choose - 1][STATUS] = 'Reading'
     calc_percentage(choose)
 
     update_database(library)

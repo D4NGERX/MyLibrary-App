@@ -1,0 +1,1 @@
+DEFAULT_PARAMETERS_ORDER = ["Title", "Pages", "Per", "Date", "Status", "Author"]

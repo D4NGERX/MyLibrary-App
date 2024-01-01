@@ -1,22 +1,23 @@
 ###############################
 # Title: Library Program
 # Authors: Osama Ashraf & Muhammad Radwan
-# Version: v2.5
+# Version: v3.0
 # Description: -----
+# TODO: merge Date_Format() function
+# TODO: sort_library() function
+# TODO: Mark_Pages() function
+# TODO: ratings database and function
 ################################
 
 from Major_Functions import *
 
-print('-----------------------------------------------')
-print('-----------------Library App-------------------')
+print("-----------------------------------------------")
+print("-----------------Library App-------------------")
 
 while True:
     main_menu()
     choice = input()
-    try:
-        check(choice)
-    except:
-        print('Enter a Valid value!')
-    
-    print('\n-----------------------------------------------')
 
+    check(choice)
+
+    print("\n-----------------------------------------------")

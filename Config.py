@@ -1,43 +1,51 @@
-# Files Locations
-DATABASE_PATH = r'D:\PROJECTS\Library Project\database.txt'
-OUTPUT_PATH = r'D:\PROJECTS\Library Project\output.txt'
+# Files Paths
+DATABASE_PATH = "database.txt"
+OUTPUT_PATH = "output.txt"
 
 # Global Variables
-TITLE_COL_WIDTH = 4
-PAGES_COL_WIDTH = 2
-PERCENT_COL_WIDTH = 1
-DATE_COL_WIDTH = 2
-STATUS_COL_WIDTH = 2
-AUTHOR_COL_WIDTH = 3
+PARAMETERS = ["Title", "Pages", "Per", "Date", "Status", "Author"]
 
-def generateLine(title, pages, percent, date, status, author):
-    BAR = '-------'
-    return f'+{BAR*title + '-'*(title-1)}+{BAR*pages + '-'*(pages-1)}+{BAR*percent + '-'*(percent-1)}+{BAR*date + '-'*(date-1)}+{BAR*status + '-'*(status-1)}+{BAR*author + '-'*(author-1)}+'
-
-
-
-SEPARATING_LINE = generateLine(TITLE_COL_WIDTH, PAGES_COL_WIDTH, PERCENT_COL_WIDTH, DATE_COL_WIDTH, STATUS_COL_WIDTH, AUTHOR_COL_WIDTH)
-
-
-TABLE_HEADER = f'''{SEPARATING_LINE}
-|{TITLE_COL_WIDTH * '\t'}|{PAGES_COL_WIDTH * '\t'}|{PERCENT_COL_WIDTH * '\t'}|{DATE_COL_WIDTH * '\t'}|{STATUS_COL_WIDTH * '\t'}|{AUTHOR_COL_WIDTH * '\t'}|
-| Title{TITLE_COL_WIDTH * '\t'}| Pages{PAGES_COL_WIDTH * '\t'}| per{PERCENT_COL_WIDTH * '\t'}| Date{DATE_COL_WIDTH * '\t'}| Status{(STATUS_COL_WIDTH-1) * '\t'}| Author{(AUTHOR_COL_WIDTH-1) * '\t'}|
-|{TITLE_COL_WIDTH * '\t'}|{PAGES_COL_WIDTH * '\t'}|{PERCENT_COL_WIDTH * '\t'}|{DATE_COL_WIDTH * '\t'}|{STATUS_COL_WIDTH * '\t'}|{AUTHOR_COL_WIDTH * '\t'}|
-{SEPARATING_LINE}'''
-
-
-PARAMETERS = ['title', 'pages', 'percent', 'date', 'status', 'author']
-
-GUIDE = {    # Translating parameter into number
-    'title' : 0,
-    'pages' : 1,
-    'percent': 2,
-    'date' : 3,
-    'status' : 4,
-    'author' : 5
+WIDTHS = {
+    "Title": 4,
+    "Pages": 2,
+    "Per": 1,
+    "Date": 2,
+    "Status": 2,
+    "Author": 3
 }
 
+def generateLine():
+    BAR = "-------"
+    return (
+        f"+{BAR*WIDTHS[PARAMETERS[0]] + "-"*(WIDTHS[PARAMETERS[0]]-1)}"
+        f"+{BAR*WIDTHS[PARAMETERS[1]] + "-"*(WIDTHS[PARAMETERS[1]]-1)}"
+        f"+{BAR*WIDTHS[PARAMETERS[2]] + "-"*(WIDTHS[PARAMETERS[2]]-1)}"
+        f"+{BAR*WIDTHS[PARAMETERS[3]] + "-"*(WIDTHS[PARAMETERS[3]]-1)}"
+        f"+{BAR*WIDTHS[PARAMETERS[4]] + "-"*(WIDTHS[PARAMETERS[4]]-1)}"
+        f"+{BAR*WIDTHS[PARAMETERS[5]] + "-"*(WIDTHS[PARAMETERS[5]]-1)}+"
+    )
+
+def justify(string, width):
+    return string + " "*(width-len(string))
+
+
+SEPARATING_LINE = generateLine()
 
 
 
 
+
+GUIDE = dict(zip(PARAMETERS, range(len(PARAMETERS))))
+
+# from Minor_Functions import get_books
+
+
+# current_order = get_books()[0]
+
+
+TITLE = GUIDE["Title"]
+PAGES = GUIDE["Pages"]
+PERCENT = GUIDE["Per"]
+DATE = GUIDE["Date"]
+STATUS = GUIDE["Status"]
+AUTHOR = GUIDE["Author"]

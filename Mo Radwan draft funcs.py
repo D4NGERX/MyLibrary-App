@@ -1,8 +1,6 @@
 # MyLibrary = []
 
 
-
-
 # def date_format           (instructions, Error_Massage):
 #     while True:
 #         try:
@@ -29,18 +27,16 @@
 #     library.append(sorted_values)
 
 
-def date_format           (instructions, Error_Massage):
+def date_format(instructions, Error_Massage):
     while True:
         try:
             date = input(instructions)
             if date[2] != "/" or date[5] != "/" or len(date) != 10:
                 print(Error_Massage)
-            elif int(date[:2])> 31 or int(date[3:5])> 12 or int(date[6:])> 2024:
+            elif int(date[:2]) > 31 or int(date[3:5]) > 12 or int(date[6:]) > 2024:
                 print(Error_Massage)
             elif date[2] == "/" and date[5] == "/" and len(date) == 10:
                 break
         except:
             print(Error_Massage)
     return date
-
-

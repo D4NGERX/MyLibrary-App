@@ -3,7 +3,12 @@ from Style import *
 
 
 
-def get_books():  # Get books details list
+def get_books():
+    """Get books' details list from database.txt file
+
+    Returns:
+        list: list of books' details
+    """
     books_details = []
     database = open(DATABASE_PATH, "r")  # Opening input file
     lines = database.readlines()
@@ -19,14 +24,27 @@ def get_books():  # Get books details list
     return books_details
 
 
-def output(string):  # Printing Values in both terminal and output.txt file
+def output(string):
+    """Printing Values in both terminal and output.txt file
+
+    Args:
+        string (string): string to be printed
+    """
     output_file = open(OUTPUT_PATH, "a")
     print(string, end="")
     output_file.write(string)
     output_file.close()
 
 
-def check_found(title):  # Check if book is in ddatabse or not
+def check_found(title):
+    """Check if book is in database or not
+
+    Args:
+        title (string): book title
+
+    Returns:
+        bool: True if book is in database, False otherwise
+    """
     books = get_books()
 
     for i in range(len(books)):
@@ -36,7 +54,16 @@ def check_found(title):  # Check if book is in ddatabse or not
     return False
 
 
-def removeAll(list, value):  # Removes all (value) from a list
+def removeAll(list, value):
+    """Remove all occurences of value from list
+
+    Args:
+        list (list): list to be modified
+        value (any): value to be removed
+
+    Returns:
+        list: list after removing all occurences of value
+    """
     for e in list.copy():
         if e == value:
             list.remove(value)
@@ -44,7 +71,7 @@ def removeAll(list, value):  # Removes all (value) from a list
     return list
 
 
-def update_database(library):  # Update Database after any modification
+def update_database(library):
     """Update Database after any modification
 
     Args:
@@ -61,7 +88,17 @@ def update_database(library):  # Update Database after any modification
 
     database.close()
 
-def integer_only(instructions, Error_Massage):  # Getting integer value only from user
+
+def integer_only(instructions, Error_Massage): 
+    """Making sure that user entered an integer value
+
+    Args:
+        instructions (string): Message to enter integer
+        Error_Massage (string): Meassage when invalid integer detected
+
+    Returns:
+        int: Correct integer
+    """
     while True:
         try:
             variable = int(input(instructions))
@@ -71,7 +108,12 @@ def integer_only(instructions, Error_Massage):  # Getting integer value only fro
     return variable
 
 
-def calc_percentage(choose):  # Calculate book reading percentage
+def calc_percentage(choose):
+    """Calculate percentage of book read
+
+    Args:
+        choose (int): book index
+    """
     library = get_books()
     read_pages = int(library[choose - 1][PAGES].split("/")[0])
     total_pages = int(library[choose - 1][PAGES].split("/")[1])
@@ -83,7 +125,13 @@ def calc_percentage(choose):  # Calculate book reading percentage
     full_percentage(library, choose)
 
 
-def full_percentage(library, choose):  # Check if book is finished
+def full_percentage(library, choose):
+    """Check if book is finished or not
+
+    Args:
+        library (list): list of books
+        choose (int): book index
+    """
     read_pages = int(library[choose - 1][PAGES].split("/")[0])
     total_pages = int(library[choose - 1][PAGES].split("/")[1])
 
@@ -95,7 +143,12 @@ def full_percentage(library, choose):  # Check if book is finished
     update_database(library)
 
 
-def choose_book():  # List books for user and ask him to choose one
+def choose_book():  
+    """Choose book from library after showing all books
+
+    Returns:
+        int: book index
+    """
     library = get_books()
     books_list = []
     for book in library:  # Getting books list
@@ -113,9 +166,7 @@ def choose_book():  # List books for user and ask him to choose one
     return choose
 
 
-def get_correct_date_format(
-    instructions, Error_Massage
-):  # Making sure that user entered a valid date
+def get_correct_date_format(instructions, Error_Massage):  # Making sure that user entered a valid date
     """Making sure that user entered a valid date
 
     Args:

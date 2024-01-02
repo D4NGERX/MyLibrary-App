@@ -1,5 +1,3 @@
-from Config import *
-from Style import *
 from Minor_Functions import *
 
 
@@ -36,7 +34,7 @@ def check(choice):  # Checking User Choice
 
     elif choice == "4":
         title = input("Enter book Title: ").title()
-        show_books_by("title", title)
+        show_books_by("Title", title)
 
     elif choice == "5":
         show_library()

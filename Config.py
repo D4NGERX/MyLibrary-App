@@ -25,23 +25,10 @@ def generateLine():
         f"+{BAR*WIDTHS[PARAMETERS[5]] + "-"*(WIDTHS[PARAMETERS[5]]-1)}+"
     )
 
-def justify(string, width):
-    return string + " "*(width-len(string))
-
 
 SEPARATING_LINE = generateLine()
 
-
-
-
-
 GUIDE = dict(zip(PARAMETERS, range(len(PARAMETERS))))
-
-# from Minor_Functions import get_books
-
-
-# current_order = get_books()[0]
-
 
 TITLE = GUIDE["Title"]
 PAGES = GUIDE["Pages"]

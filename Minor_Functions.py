@@ -166,7 +166,7 @@ def choose_book():
     return choose
 
 
-def get_correct_date_format(instructions, Error_Massage):  # Making sure that user entered a valid date
+def get_correct_date_format(instructions, Error_Massage):
     """Making sure that user entered a valid date
 
     Args:

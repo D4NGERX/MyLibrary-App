@@ -43,8 +43,8 @@ def check(choice):  # Checking User Choice
 
     # elif choice == '6':
     #     sort_library()
-    # elif choice == '7':
-    #     mark_page()
+    elif choice == '7':
+        mark_page()
 
     elif choice == "8":
         parameter = input("Choose parameter[Date, Status, Author]: ").title()
@@ -193,3 +193,6 @@ def read(choose):  # Updating count of read pages and percentage after reading s
     calc_percentage(choose)
 
     update_database(library)
+
+def mark_page():
+    pass

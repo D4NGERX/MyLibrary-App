@@ -210,6 +210,7 @@ def reorder_books(library):
     old_order = lines[2].split("|")
     old_order = [element.strip('\t \n') for element in old_order]  # Getting old order of parameters
     removeAll(old_order, "")
+    print(old_order)
     
     # Reorder box according to new order
     new_indicies = [old_order.index(element) for element in PARAMETERS]   # Getting new order of parameters
@@ -299,3 +300,6 @@ def rating_after_finishing(library, choose):
     file.write("\n+-------------------------------+---------------+")
 
     file.close()
+
+
+print(get_books())

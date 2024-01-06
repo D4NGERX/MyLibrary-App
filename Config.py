@@ -5,9 +5,10 @@ MARKS_PATH = "Marked Pages.txt"
 RATINGS_PATH = "ratings.txt"
 
 # Global Variables
-PARAMETERS = ["Title", "Pages", "Per", "Date", "Status", "Author"]   # Note: Order of parameters is the order of columns in database
+PARAMETERS = ["", "Title", "Pages", "Per", "Date", "Status", "Author"]   # Note: Order of parameters is the order of columns in database
 
 WIDTHS = {
+    "": 1,
     "Title": 4,
     "Pages": 2,
     "Per": 1,
@@ -19,12 +20,12 @@ WIDTHS = {
 def generateLine():
     BAR = "-------"
     return (
-        f"+{BAR*WIDTHS[PARAMETERS[0]] + "-"*(WIDTHS[PARAMETERS[0]]-1)}"
         f"+{BAR*WIDTHS[PARAMETERS[1]] + "-"*(WIDTHS[PARAMETERS[1]]-1)}"
         f"+{BAR*WIDTHS[PARAMETERS[2]] + "-"*(WIDTHS[PARAMETERS[2]]-1)}"
         f"+{BAR*WIDTHS[PARAMETERS[3]] + "-"*(WIDTHS[PARAMETERS[3]]-1)}"
         f"+{BAR*WIDTHS[PARAMETERS[4]] + "-"*(WIDTHS[PARAMETERS[4]]-1)}"
-        f"+{BAR*WIDTHS[PARAMETERS[5]] + "-"*(WIDTHS[PARAMETERS[5]]-1)}+"
+        f"+{BAR*WIDTHS[PARAMETERS[5]] + "-"*(WIDTHS[PARAMETERS[5]]-1)}"
+        f"+{BAR*WIDTHS[PARAMETERS[6]] + "-"*(WIDTHS[PARAMETERS[6]]-1)}+"
     )
 
 

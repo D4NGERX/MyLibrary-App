@@ -10,7 +10,7 @@ def get_books():
         list: list of books' details
     """
     books_details = []
-    database = open(DATABASE_PATH, "r")  # Opening input file
+    database = advanced_open(DATABASE_PATH, "r")  # Opening database file
     lines = database.readlines()
     for line in lines:
         line = [element.strip('\t \n') for element in line.split("|")]    # Clearing line
@@ -203,7 +203,7 @@ def reorder_books(library):
     Returns:
         list: list of books after reordering
     """
-    database = open(DATABASE_PATH, "r")
+    database = advanced_open(DATABASE_PATH, "r")
     lines = database.readlines()
 
     # Getting old order of parameters
@@ -219,3 +219,67 @@ def reorder_books(library):
         ordered_library.append([book[i] for i in (new_indicies)])
 
     return ordered_library
+
+
+def advanced_open(path, mode):
+    """Open file and create it if not found to avoid errors
+
+    Args:
+        path (string): file path to be opened
+        mode (_type_): file mode
+
+    Returns:
+        file: opened file
+    """
+    try:
+        file = open(path, mode)
+    
+    except FileNotFoundError:
+        file = open(path, 'w')   # Creating database.txt file in required place
+
+        if path == DATABASE_PATH:
+            file.write(TABLE_HEADER)
+
+        file.close()
+        file = open(DATABASE_PATH, "r")
+    
+    return file
+
+
+def get_book_order(title):
+    """Get book index in database
+
+    Args:
+        title (string): book title
+
+    Returns:
+        int: book index
+    """
+    library = get_books()
+    for i in range(len(library)):
+        if library[i][TITLE] == title:
+            return i
+
+
+def divide_string(string, segment_length):
+    """Divide string to segments with length less than or equal to segment_length according to spaces
+
+    Args:
+        string (string): string to be divided
+        segment_length (int): maximum length of each segment
+
+    Returns:
+        list: list of segments
+    """
+    segments = []
+    while len(string) > segment_length:                                 # If string is larger than column width, divide it to more than one line
+        segment = string[:segment_length]                   # Forming segment
+        last_space = segment_length-segment[::-1].find(' ')             # Inverse segment --> get first space index --> negative of that index is the index from the end --> adding segment_length will result in index from start
+        segment = segment[:last_space]   
+        segments.append(segment)
+        string = string[last_space:]
+
+    segments.append(string)
+
+    return segments
+

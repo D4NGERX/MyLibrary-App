@@ -1,7 +1,7 @@
 from Config import *
 
 def cell_format(string, number_of_tabs):  # Generating Cell Shape
-    spaces = 8 * number_of_tabs - len(string) - 2
+    spaces = 8 * number_of_tabs - 2 - len(string)
     return " " + string + " " * spaces
 
 

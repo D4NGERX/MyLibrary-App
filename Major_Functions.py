@@ -3,17 +3,17 @@ from Minor_Functions import *
 
 def main_menu():  # Printing Main Menu
     print("-----------------------------------------------")
-    print("1) Add New book")  # Done
-    print("2) Remove book")  # Done
-    print("3) I read some pages")  # Done
-    print("4) Get book details")  # Done
-    print("5) Show my Library")  # Done
-    print("6) Sort my library")  # Under Dev
-    print("7) Mark page")  # Under Dev
+    print("1) Add New book")                                 # Done
+    print("2) Remove book")                                  # Done
+    print("3) I read some pages")                            # Done
+    print("4) Get book details")                             # Done
+    print("5) Show my Library")                              # Done
+    print("6) Sort my library")                              # Under Dev
+    print("7) Mark page")                                    # Done
     print("8) Find books by [Title, Date, Status, Author]")  # Done
-    print("9) Modify book details")  # Done
-    print("0) Exit")  # Done
-    print("00) Clear Screen")  # Done
+    print("9) Modify book details")                          # Done
+    print("0) Exit")                                         # Done
+    print("00) Clear Screen")                                # Done
     print("-----------------------------------------------")
 
 
@@ -41,8 +41,8 @@ def check(choice):  # Checking User Choice
 
     # elif choice == '6':
     #     sort_library()
-    # elif choice == '7':
-    #     mark_page()
+    elif choice == '7':
+        mark_page()
 
     elif choice == "8":
         parameter = input("Choose parameter[Date, Status, Author]: ").title()
@@ -135,7 +135,9 @@ def remove_book(book_title):  # Rmoving book by entering its title
 
 def show_library():  # Showing th Whole Library
     update_database(get_books())
-    database = open(DATABASE_PATH, "r")
+    
+    database = advanced_open(DATABASE_PATH, "r")
+    
     lines = database.readlines()
 
     for line in lines:
@@ -191,3 +193,41 @@ def read(choose):  # Updating count of read pages and percentage after reading s
     calc_percentage(choose)
 
     update_database(library)
+
+
+def mark_page():
+    database = open(MARKS_PATH, 'a')
+    
+    title = input("Enter Book Title:").title()
+    while not check_found(title):               # Making sure that user enterd title of an existing book
+        print("Book not found!")
+        title = input("Enter Book Title:").title()
+
+    
+    order = get_book_order(title)
+
+    page_to_mark = integer_only("Enter page to mark: ", "Please, Enter a valid page number!")
+    while page_to_mark > int(get_books()[order][PAGES].split("/")[1]):   # Making sure that user entered valid page number
+        print("Please, Enter a valid page number!")
+        page_to_mark = integer_only("Enter page to mark: ", "Please, Enter a valid page number!")
+
+    comment = input('Any comments ?\n')
+    
+    comment = divide_string(comment, 53)  # Dividing comment into segments to fit in the table
+
+    database.write(f'\n|{cell_format(title, WIDTHS["Title"])}|{cell_format(f'{page_to_mark}', 2)}|{cell_format(comment[0], 7)}|')
+    for i in range(1, len(comment)):
+        database.write(f'\n|{cell_format("", WIDTHS["Title"])}|{cell_format("", 2)}|{cell_format(comment[i], 7)}|')
+    database.write('\n+-------------------------------+---------------+-------------------------------------------------------+')
+    
+    
+
+    database.close()
+
+    
+    
+    
+
+
+mark_page()
+

@@ -48,7 +48,7 @@ def check_found(title):
     books = get_books()
 
     for i in range(len(books)):
-        if books[i][0].title() == title:
+        if books[i][TITLE].title() == title:
             return True
 
     return False
@@ -210,7 +210,6 @@ def reorder_books(library):
     old_order = lines[2].split("|")
     old_order = [element.strip('\t \n') for element in old_order]  # Getting old order of parameters
     removeAll(old_order, "")
-    print(old_order)
     
     # Reorder box according to new order
     new_indicies = [old_order.index(element) for element in PARAMETERS]   # Getting new order of parameters
@@ -300,6 +299,3 @@ def rating_after_finishing(library, choose):
     file.write("\n+-------------------------------+---------------+")
 
     file.close()
-
-
-print(get_books())

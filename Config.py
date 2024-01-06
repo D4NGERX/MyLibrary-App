@@ -1,9 +1,10 @@
 # Files Paths
 DATABASE_PATH = "database.txt"
 OUTPUT_PATH = "output.txt"
+MARKS_PATH = 'Marked Pages.txt'
 
 # Global Variables
-PARAMETERS = ["Title", "Pages", "Per", "Date", "Status", "Author"]
+PARAMETERS = ["Title", "Pages", "Per", "Date", "Status", "Author"]   # Note: Order of parameters is the order of columns in database
 
 WIDTHS = {
     "Title": 4,
@@ -24,9 +25,6 @@ def generateLine():
         f"+{BAR*WIDTHS[PARAMETERS[4]] + "-"*(WIDTHS[PARAMETERS[4]]-1)}"
         f"+{BAR*WIDTHS[PARAMETERS[5]] + "-"*(WIDTHS[PARAMETERS[5]]-1)}+"
     )
-
-def justify(string, width):
-    return string + " "*(width-len(string))
 
 
 SEPARATING_LINE = generateLine()

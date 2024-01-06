@@ -138,7 +138,7 @@ def full_percentage(library, choose):
     if read_pages == total_pages:  # If book is finished
         print("Congratiolatins!! You have finished the book")
         library[choose - 1][STATUS] = "Finished"
-        # rating_after_finishing(library,choose)
+        rating_after_finishing(library,choose)
 
     update_database(library)
 
@@ -283,3 +283,19 @@ def divide_string(string, segment_length):
 
     return segments
 
+
+def rating_after_finishing(library, choose):
+    file = open(RATINGS_PATH, 'a')
+    title = library[choose - 1][TITLE]
+
+    while True:
+        rating = integer_only("Enter your rating for this book from 1 to 10: ", "INVALID! Integers only")
+        if 0 < rating <= 10:
+            break
+        else:
+            print("OUT OF RANGE! Enter Correct rating")
+
+    file.write(f"\n|{cell_format(title, WIDTHS['Title'])}|{cell_format(f"{rating}/10", 2)}|")
+    file.write("\n+-------------------------------+---------------+")
+
+    file.close()

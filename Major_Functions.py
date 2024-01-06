@@ -12,13 +12,15 @@ def main_menu():  # Printing Main Menu
     print("7) Mark page")                                    # Done
     print("8) Find books by [Title, Date, Status, Author]")  # Done
     print("9) Modify book details")                          # Done
+    print("10) Show my marks")                               # Done
+    print("11) Show my ratings")                             # Done
     print("0) Exit")                                         # Done
     print("00) Clear Screen")                                # Done
     print("-----------------------------------------------")
 
 
 def check(choice):  # Checking User Choice
-    output_file = open(OUTPUT_PATH, "w")  # Making Sure That output file is opened and clean
+    output_file = open(OUTPUT_PATH, "w").close()  # Making Sure That output file is opened and clean
     
     if choice == "1":
         add_new_book()
@@ -65,6 +67,16 @@ def check(choice):  # Checking User Choice
             parameter = input("Enter parameter to change: ").title()
         modification = input("Enter new value: ")
         modify(title, parameter, modification)
+
+    elif choice == "10":
+        file = advanced_open(MARKS_PATH, 'r')
+        output(file.read())
+        file.close()
+    
+    elif choice == "11":
+        file = advanced_open(RATINGS_PATH, 'r')
+        output(file.read())
+        file.close()
 
     elif choice == "0":  # exiting program using exit() function
         print("Bye !")
@@ -196,6 +208,7 @@ def read(choose):  # Updating count of read pages and percentage after reading s
 
 
 def mark_page():
+
     database = open(MARKS_PATH, 'a')
     
     title = input("Enter Book Title:").title()
@@ -223,11 +236,4 @@ def mark_page():
     
 
     database.close()
-
-    
-    
-    
-
-
-mark_page()
-
+    print("Marked !")

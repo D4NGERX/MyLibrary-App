@@ -1,7 +1,8 @@
 # Files Paths
 DATABASE_PATH = "database.txt"
 OUTPUT_PATH = "output.txt"
-MARKS_PATH = 'Marked Pages.txt'
+MARKS_PATH = "Marked Pages.txt"
+RATINGS_PATH = "ratings.txt"
 
 # Global Variables
 PARAMETERS = ["Title", "Pages", "Per", "Date", "Status", "Author"]   # Note: Order of parameters is the order of columns in database

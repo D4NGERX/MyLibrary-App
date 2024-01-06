@@ -5,7 +5,7 @@
 # Description: -----
 # TODO: merge Date_Format() function
 # TODO: sort_library() function
-# TODO: ratings database and function
+# TODO: settings
 ################################
 
 from Major_Functions import *

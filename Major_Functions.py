@@ -14,6 +14,8 @@ def main_menu():  # Printing Main Menu
     print("9) Modify book details")                          # Done
     print("10) Show my marks")                               # Done
     print("11) Show my ratings")                             # Done
+    print("-----------------------------------------------")
+    print("#) Settings")                                   # Under Dev
     print("0) Exit")                                         # Done
     print("00) Clear Screen")                                # Done
     print("-----------------------------------------------")
@@ -77,6 +79,13 @@ def check(choice):  # Checking User Choice
         file = advanced_open(RATINGS_PATH, 'r')
         output(file.read())
         file.close()
+
+
+
+    elif choice == "#":  # Settings
+        print("Change Database Path")
+        print("Change Output Path")
+        print("Change Marks Path")
 
     elif choice == "0":  # exiting program using exit() function
         print("Bye !")

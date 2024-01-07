@@ -5,15 +5,16 @@ MARKS_PATH = "Marked Pages.txt"
 RATINGS_PATH = "ratings.txt"
 
 # Global Variables
-PARAMETERS = ["Title", "Pages", "Per", "Date", "Status", "Author"]   # Note: Order of parameters is the order of columns in database
+PARAMETERS = ["ID", "Title", "Status", "Date", "Pages", "Per", "Author"]   # Note: Order of parameters is the order of columns in database
 
 WIDTHS = {
+    "ID": 1,
     "Title": 4,
     "Pages": 2,
     "Per": 1,
     "Date": 2,
     "Status": 2,
-    "Author": 3
+    "Author": 4
 }
 
 def generateLine():
@@ -24,7 +25,8 @@ def generateLine():
         f"+{BAR*WIDTHS[PARAMETERS[2]] + "-"*(WIDTHS[PARAMETERS[2]]-1)}"
         f"+{BAR*WIDTHS[PARAMETERS[3]] + "-"*(WIDTHS[PARAMETERS[3]]-1)}"
         f"+{BAR*WIDTHS[PARAMETERS[4]] + "-"*(WIDTHS[PARAMETERS[4]]-1)}"
-        f"+{BAR*WIDTHS[PARAMETERS[5]] + "-"*(WIDTHS[PARAMETERS[5]]-1)}+"
+        f"+{BAR*WIDTHS[PARAMETERS[5]] + "-"*(WIDTHS[PARAMETERS[5]]-1)}"
+        f"+{BAR*WIDTHS[PARAMETERS[6]] + "-"*(WIDTHS[PARAMETERS[6]]-1)}+"
     )
 
 
@@ -32,6 +34,7 @@ SEPARATING_LINE = generateLine()
 
 GUIDE = dict(zip(PARAMETERS, range(len(PARAMETERS))))
 
+ID = GUIDE["ID"]
 TITLE = GUIDE["Title"]
 PAGES = GUIDE["Pages"]
 PERCENT = GUIDE["Per"]

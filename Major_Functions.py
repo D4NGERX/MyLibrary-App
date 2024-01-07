@@ -45,6 +45,7 @@ def check(choice):  # Checking User Choice
 
     # elif choice == '6':
     #     sort_library()
+        
     elif choice == '7':
         mark_page()
 
@@ -63,7 +64,7 @@ def check(choice):  # Checking User Choice
             print("Book not found !")
             title = input("Enter book title: ").title()
 
-        parameter = input(F"Enter parameter to change {PARAMETERS}: ").title()
+        parameter = input(f"Enter parameter to change [Title, Author, Date, Pages]: ").title()
         while parameter.title() not in PARAMETERS:
             print("Enter a valid choice!")
             parameter = input("Enter parameter to change: ").title()
@@ -126,6 +127,7 @@ def add_new_book():  # Adding book to Library
 
     database_a = open(DATABASE_PATH, "a")
     book = {}
+    book[ID] = f'{len(get_books()) + 1 + 1}'    # Adding 1 to the length of the library to get cuurent count of books and 1 to get the next ID
     book[TITLE] = title
     book[PAGES] = f"{read_pages}/{Total_pages}"
     book[DATE] = start_date
@@ -144,7 +146,7 @@ def remove_book(book_title):  # Rmoving book by entering its title
     library = get_books()
     found = False
     for book in library:
-        if book[0].title() == book_title:
+        if book[TITLE].title() == book_title:
             found = True
             library.remove(book)
     if found:
@@ -169,6 +171,7 @@ def show_books_by(parameter, value):  # Find books with parameter value
     library = get_books() 
 
     results = []  # Result books
+    result_ID = 0  # Result books IDs
 
     for book in library:  # Search book by book    
 
@@ -180,6 +183,8 @@ def show_books_by(parameter, value):  # Find books with parameter value
     else:
         output(TABLE_HEADER)
         for result in results:
+            result_ID += 1
+            result[ID] = f"{result_ID}"        # Making New IDs for results to count them
             output(formatting(result) + "\n")  # output Found books
             output(SEPARATING_LINE)
 
@@ -187,7 +192,7 @@ def show_books_by(parameter, value):  # Find books with parameter value
 def modify(title, parameter, new_value):  # Modify any value by book title
     library = get_books()
     for i in range(len(library)):
-        if library[i][0].title() == title:
+        if library[i][TITLE].title() == title:
             if parameter == "Pages":
                 library[i][GUIDE[parameter]] = f"{library[i][GUIDE[parameter]].split('/')[0]}/{new_value}"
                 update_database(library)

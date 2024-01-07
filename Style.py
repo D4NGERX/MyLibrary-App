@@ -7,6 +7,7 @@ def cell_format(string, number_of_tabs):  # Generating Cell Shape
 
 def formatting(book):  # generating line to be printed in a table shape
     cells = {}
+    cells["ID"] = cell_format(book[ID], WIDTHS["ID"])
     cells["Title"] = cell_format(book[TITLE].title(), WIDTHS["Title"])
     cells["Pages"] = cell_format(book[PAGES], WIDTHS["Pages"])
     cells["Per"] = cell_format(book[PERCENT], WIDTHS["Per"])

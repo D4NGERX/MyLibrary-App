@@ -1,11 +1,9 @@
 ###############################
 # Title: Library Program
 # Authors: Osama Ashraf & Muhammad Radwan
-# Version: v3.2
+# Version: v3.5
 # Description: -----
-# TODO: merge Date_Format() function
 # TODO: sort_library() function
-# TODO: settings
 ################################
 
 from Major_Functions import *

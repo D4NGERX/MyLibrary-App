@@ -176,21 +176,51 @@ def get_correct_date_format(instructions, Error_Massage):
     Returns:
         string: Correct Date
     """
+    import time
+    Current_day = time.strftime("%d", time.localtime())
+    Current_month = time.strftime("%m", time.localtime())
+    Current_year = time.strftime("%Y", time.localtime())
+    Current_date_value = Current_year + Current_month + Current_day
+
     while True:
-        date = input(instructions)
-        chunks = date.split("/")
-        if len(chunks) != 3:
-            print(Error_Massage)
-        else:
-            DD, MM, YYYY = [
-                int(chunk) for chunk in chunks
-            ]  # Separating chunks of date and convert it to integer values
-            if DD > 31 or MM > 12 or YYYY < 1000:
-                print(Error_Massage)
-
+        try:
+            date = input(instructions)
+            if len(date) == 10 and date[2] == "/" and date[5] == "/" or len(date) == 9 and date[2] == "/" and date[4] == "/" or len(date) == 9 and date[1] == "/" and date[4] == "/" or len(date) == 8 and date[1] == "/" and date[3] == "/":
+                date_components = date.split("/")
+                day = date_components[0]
+                month = date_components[1]
+                year = date_components[2]
+                regular_months = [4, 6, 9, 11]
+                if int(month) == 0 or int(day) == 0 or int(year) == 0:
+                    print(Error_Massage)
+                    continue
+                if int(month) > 12 or int(day) > 31:
+                    print(Error_Massage)
+                    continue
+                if int(month) in regular_months and int(day) > 30:
+                    print(Error_Massage)
+                    continue
+                if int(month) == 2 and int(year) % 4 == 0:
+                    if int(day) > 29:
+                        print(Error_Massage)
+                        continue
+                elif int(month) == 2 and int(year) % 4 != 0:
+                    if int(day) > 28:
+                        print(Error_Massage)
+                        continue
+                if int(day) < 10:
+                    day = "0" + day
+                if int(month) < 10:
+                    month = "0" + month
+                date_value = year + month + day
+                if int(date_value) > int(Current_date_value):
+                    print(Error_Massage)
+                else:
+                    break
             else:
-                break
-
+                print(Error_Massage)
+        except:
+            print(Error_Massage)
     return date
 
 

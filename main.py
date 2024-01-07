@@ -3,7 +3,6 @@
 # Authors: Osama Ashraf & Muhammad Radwan
 # Version: v3.5
 # Description: -----
-# TODO: merge Date_Format() function
 # TODO: sort_library() function
 ################################
 

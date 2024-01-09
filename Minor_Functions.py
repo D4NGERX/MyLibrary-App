@@ -3,14 +3,14 @@ from Style import *
 
 
 
-def get_books_from(file):
+def get_books():
     """Get books' details list from database.txt file
 
     Returns:
         list: list of books' details
     """
     books_details = []
-    database = open(file, "r")  # Opening input file
+    database = advanced_open(DATABASE_PATH, "r")  # Opening database file
     lines = database.readlines()
     for line in lines:
         line = [element.strip('\t \n') for element in line.split("|")]    # Clearing line
@@ -20,7 +20,7 @@ def get_books_from(file):
             books_details.append(line)
 
     database.close()
-    books_details = reorder_books(books_details[1:], file)    # Reorder books according to global parameters & remove table header
+    books_details = reorder_books(books_details[1:])    # Reorder books according to global parameters & remove table header
     return books_details
 
 
@@ -45,10 +45,10 @@ def check_found(title):
     Returns:
         bool: True if book is in database, False otherwise
     """
-    books = get_books_from(DATABASE_PATH)
+    books = get_books()
 
     for i in range(len(books)):
-        if books[i][0].title() == title:
+        if books[i][TITLE].title() == title:
             return True
 
     return False
@@ -114,7 +114,7 @@ def calc_percentage(choose):
     Args:
         choose (int): book index
     """
-    library = get_books_from(DATABASE_PATH)
+    library = get_books()
     read_pages = int(library[choose - 1][PAGES].split("/")[0])
     total_pages = int(library[choose - 1][PAGES].split("/")[1])
 
@@ -138,7 +138,7 @@ def full_percentage(library, choose):
     if read_pages == total_pages:  # If book is finished
         print("Congratiolatins!! You have finished the book")
         library[choose - 1][STATUS] = "Finished"
-        # rating_after_finishing(library,choose)
+        rating_after_finishing(library,choose)
 
     update_database(library)
 
@@ -149,7 +149,7 @@ def choose_book():
     Returns:
         int: book index
     """
-    library = get_books_from(DATABASE_PATH)
+    library = get_books()
     books_list = []
     for book in library:  # Getting books list
         books_list.append(book[TITLE])
@@ -166,7 +166,7 @@ def choose_book():
     return choose
 
 
-def get_correct_date_format(instructions, Error_Massage):  # Making sure that user entered a valid date
+def get_correct_date_format(instructions, Error_Massage):
     """Making sure that user entered a valid date
 
     Args:
@@ -177,10 +177,11 @@ def get_correct_date_format(instructions, Error_Massage):  # Making sure that us
         string: Correct Date
     """
     import time
-    Current_day =time.strftime("%d", time.localtime())
-    Current_month =time.strftime("%m", time.localtime())
-    Current_year =time.strftime("%Y", time.localtime())
+    Current_day = time.strftime("%d", time.localtime())
+    Current_month = time.strftime("%m", time.localtime())
+    Current_year = time.strftime("%Y", time.localtime())
     Current_date_value = Current_year + Current_month + Current_day
+
     while True:
         try:
             date = input(instructions)
@@ -189,7 +190,7 @@ def get_correct_date_format(instructions, Error_Massage):  # Making sure that us
                 day = date_components[0]
                 month = date_components[1]
                 year = date_components[2]
-                regular_months = [4, 6, 8, 11]
+                regular_months = [4, 6, 9, 11]
                 if int(month) == 0 or int(day) == 0 or int(year) == 0:
                     print(Error_Massage)
                     continue
@@ -223,22 +224,7 @@ def get_correct_date_format(instructions, Error_Massage):  # Making sure that us
     return date
 
 
-def sort_by_pages(book):
-    read_pages, total_pages = map(int, book[PAGES].split("/"))
-    return total_pages, read_pages
-
-
-def sort_by_percentage(book):
-    percentage = int(book[PERCENT].rstrip("%"))
-    return percentage
-
-
-def sort_by_date(book):
-    day, month, year = map(int, book[DATE].split("/"))
-    return year, month, day
-
-
-def reorder_books(library, file):
+def reorder_books(library):
     """Reorder books according to global parameters
 
     Args:
@@ -247,7 +233,7 @@ def reorder_books(library, file):
     Returns:
         list: list of books after reordering
     """
-    database = open(file, "r")
+    database = advanced_open(DATABASE_PATH, "r")
     lines = database.readlines()
 
     # Getting old order of parameters
@@ -263,3 +249,83 @@ def reorder_books(library, file):
         ordered_library.append([book[i] for i in (new_indicies)])
 
     return ordered_library
+
+
+def advanced_open(path, mode):
+    """Open file and create it if not found to avoid errors
+
+    Args:
+        path (string): file path to be opened
+        mode (_type_): file mode
+
+    Returns:
+        file: opened file
+    """
+    try:
+        file = open(path, mode)
+    
+    except FileNotFoundError:
+        file = open(path, 'w')   # Creating database.txt file in required place
+
+        if path == DATABASE_PATH:
+            file.write(TABLE_HEADER)
+
+        file.close()
+        file = open(DATABASE_PATH, "r")
+    
+    return file
+
+
+def get_book_order(title):
+    """Get book index in database
+
+    Args:
+        title (string): book title
+
+    Returns:
+        int: book index
+    """
+    library = get_books()
+    for i in range(len(library)):
+        if library[i][TITLE] == title:
+            return i
+
+
+def divide_string(string, segment_length):
+    """Divide string to segments with length less than or equal to segment_length according to spaces
+
+    Args:
+        string (string): string to be divided
+        segment_length (int): maximum length of each segment
+
+    Returns:
+        list: list of segments
+    """
+    segments = []
+    while len(string) > segment_length:                                 # If string is larger than column width, divide it to more than one line
+        segment = string[:segment_length]                   # Forming segment
+        last_space = segment_length-segment[::-1].find(' ')             # Inverse segment --> get first space index --> negative of that index is the index from the end --> adding segment_length will result in index from start
+        segment = segment[:last_space]   
+        segments.append(segment)
+        string = string[last_space:]
+
+    segments.append(string)
+
+    return segments
+
+
+def rating_after_finishing(library, choose):
+    file = open(RATINGS_PATH, 'a')
+    title = library[choose - 1][TITLE]
+
+    while True:
+        rating = integer_only("Enter your rating for this book from 1 to 10: ", "INVALID! Integers only")
+        if 0 < rating <= 10:
+            break
+        else:
+            print("OUT OF RANGE! Enter Correct rating")
+
+    file.write(f"\n|{cell_format(title, WIDTHS['Title'])}|{cell_format(f"{rating}/10", 2)}|")
+    file.write("\n+-------------------------------+---------------+")
+
+    file.close()

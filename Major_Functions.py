@@ -1,6 +1,8 @@
 from Minor_Functions import *
 
-def main_menu():  # Printing Main Menu
+def main_menu():
+    """Main Menu of the program"""
+
     print("-----------------------------------------------")
     print("1) Add New book")                                 # Done
     print("2) Remove book")                                  # Done
@@ -131,7 +133,9 @@ def check(choice):  # Checking User Choice
         print("Enter a valid choice \n")
 
 
-def add_new_book():  # Adding book to Library
+def add_new_book():
+    """Adding new book to the library"""
+
     while True:  # Making sure that book doesn't exist
         title = input("Book title: ").title()
         if not check_found(title):
@@ -172,7 +176,12 @@ def add_new_book():  # Adding book to Library
     calc_percentage(len(get_books_from(DATABASE_PATH)))
 
 
-def remove_book(book_title):  # Rmoving book by entering its title
+def remove_book(book_title):
+    """Removing book from the library by title
+
+    Args:
+        book_title (string): title of the book to be removed
+    """
     library = get_books_from(DATABASE_PATH)
     found = False
     for book in library:
@@ -186,7 +195,9 @@ def remove_book(book_title):  # Rmoving book by entering its title
         print("Not Found !")
 
 
-def show_library():  # Showing th Whole Library
+def show_library():
+    """Showing all books in the library"""
+
     update_database(get_books_from(DATABASE_PATH))
     
     database = advanced_open(DATABASE_PATH, "r")
@@ -197,7 +208,13 @@ def show_library():  # Showing th Whole Library
         output(line)
 
 
-def find_books_by(parameter, value):  # Find books with parameter value
+def find_books_by(parameter, value):
+    """Finding books by any parameter
+
+    Args:
+        parameter (string): parameter to search by
+        value (string): value of the parameter
+    """
     library = get_books_from(DATABASE_PATH)
 
     results = []  # Result books
@@ -216,7 +233,14 @@ def find_books_by(parameter, value):  # Find books with parameter value
             output(SEPARATING_LINE)
 
 
-def modify(title, parameter, new_value):  # Modify any value by book title
+def modify(title, parameter, new_value):
+    """Modifying any book details
+
+    Args:
+        title (string): title of the book to be modified
+        parameter (string): parameter to be modified
+        new_value (string): new value of the parameter
+    """
     library = get_books_from(DATABASE_PATH)
     for i in range(len(library)):
         if library[i][TITLE].title() == title:
@@ -233,7 +257,12 @@ def modify(title, parameter, new_value):  # Modify any value by book title
     print("Modification Done !\n")
 
 
-def read(choose):  # Updating count of read pages and percentage after reading some pages
+def read(choose):
+    """Updating the number of read pages and status of the book
+
+    Args:
+        choose (int): order of the book in the library
+    """
     library = get_books_from(DATABASE_PATH)
     readpages = integer_only(
         "Enter the number of pages you have read: ",
@@ -249,6 +278,7 @@ def read(choose):  # Updating count of read pages and percentage after reading s
 
 
 def mark_page():
+    """Marking a page in a book and adding a comment"""
 
     database = open(MARKS_PATH, 'a')
     
@@ -278,6 +308,15 @@ def mark_page():
        
 
 def sort_library_by(Parameter, Type):
+    """Sorting the library by any parameter
+
+    Args:
+        Parameter (string): Parameter to sort by
+        Type (string): Type of sorting [Ascending, Descending]
+
+    Returns:
+        list: sorted library
+    """
     books = get_books_from(DATABASE_PATH)
     if Parameter == PAGES:
         sorted_books = sorted(books, key= sort_by_pages, reverse= Type)

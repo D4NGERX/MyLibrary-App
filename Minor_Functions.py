@@ -3,14 +3,17 @@ from Style import *
 
 
 
-def get_books_from(file):
-    """Get books' details list from database.txt file
+def get_books_from(PATH):
+    """Get books' details list from database.txt file OR default.txt file
+
+    Args:
+        PATH (string): path of file
 
     Returns:
         list: list of books' details
     """
     books_details = []
-    database = advanced_open(file, "r")  # Opening input file
+    database = advanced_open(PATH, "r")  # Opening input file
     lines = database.readlines()
     for line in lines:
         line = [element.strip('\t \n') for element in line.split("|")]    # Clearing line
@@ -20,7 +23,7 @@ def get_books_from(file):
             books_details.append(line)
 
     database.close()
-    books_details = reorder_books(books_details[1:], file)    # Reorder books according to global parameters & remove table header
+    books_details = reorder_books(books_details[1:], PATH)    # Reorder books according to global parameters & remove table header
     return books_details
 
 
@@ -226,30 +229,55 @@ def get_correct_date_format(instructions, Error_Massage):
 
 
 def sort_by_pages(book):
+    """Sort books by pages
+
+    Args:
+        book (list): book details
+
+    Returns:
+        tuple: total pages, read pages
+    """
     read_pages, total_pages = map(int, book[PAGES].split("/"))
     return total_pages, read_pages
 
 
 def sort_by_percentage(book):
+    """Sort books by percentage
+
+    Args:
+        book (list): book details
+
+    Returns:
+        int: book percentage
+    """
     percentage = int(book[PERCENT].rstrip("%"))
     return percentage
 
 
 def sort_by_date(book):
+    """Sort books by date
+
+    Args:
+        book (list): book details
+
+    Returns:
+        tuple: date in year, month, day format
+    """
     day, month, year = map(int, book[DATE].split("/"))
     return year, month, day
 
 
-def reorder_books(library, file):
+def reorder_books(library, PATH):
     """Reorder books according to global parameters
 
     Args:
         library (list): list of books
+        PATH (string): path of file
 
     Returns:
         list: list of books after reordering
     """
-    database = advanced_open(file, "r")
+    database = advanced_open(PATH, "r")
     lines = database.readlines()
 
     # Getting old order of parameters
@@ -268,7 +296,7 @@ def reorder_books(library, file):
 
 
 def advanced_open(path, mode):
-    """Open file and create it if not found to avoid errors
+    """Open file for read and create it if not found to avoid errors
 
     Args:
         path (string): file path to be opened
@@ -331,6 +359,12 @@ def divide_string(string, segment_length):
 
 
 def rating_after_finishing(library, choose):
+    """Ask user to rate book after finishing it
+
+    Args:
+        library (list): list of books
+        choose (int): book index
+    """
     file = open(RATINGS_PATH, 'a')
     title = library[choose - 1][TITLE]
 

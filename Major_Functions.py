@@ -37,7 +37,7 @@ def check(choice):  # Checking User Choice
 
     elif choice == "4":
         title = input("Enter book Title: ").title()
-        show_books_by("Title", title)
+        find_books_by("Title", title)
 
     elif choice == "5":
         show_library()
@@ -86,7 +86,7 @@ def check(choice):  # Checking User Choice
             parameter = input("Choose parameter[Date, Status, Author]: ").title()
 
         value = input("Enter value: ").title()
-        show_books_by(parameter, value)
+        find_books_by(parameter, value)
 
     elif choice == "9":
         title = input("Enter book title: ").title()
@@ -197,11 +197,10 @@ def show_library():  # Showing th Whole Library
         output(line)
 
 
-def show_books_by(parameter, value):  # Find books with parameter value
+def find_books_by(parameter, value):  # Find books with parameter value
     library = get_books_from(DATABASE_PATH)
 
     results = []  # Result books
-    result_ID = 0  # Result books IDs
 
     for book in library:  # Search book by book    
 
@@ -213,8 +212,6 @@ def show_books_by(parameter, value):  # Find books with parameter value
     else:
         output(TABLE_HEADER)
         for result in results:
-            result_ID += 1
-            result[ID] = f"{result_ID}"        # Making New IDs for results to count them
             output(formatting(result) + "\n")  # output Found books
             output(SEPARATING_LINE)
 
@@ -276,8 +273,9 @@ def mark_page():
     for i in range(1, len(comment)):
         database.write(f'\n|{cell_format("", WIDTHS["Title"])}|{cell_format("", 2)}|{cell_format(comment[i], 7)}|')
     database.write('\n+-------------------------------+---------------+-------------------------------------------------------+')
-    
-    
+
+    database.close()
+       
 
 def sort_library_by(Parameter, Type):
     books = get_books_from(DATABASE_PATH)

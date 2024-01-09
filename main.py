@@ -1,9 +1,8 @@
 ###############################
 # Title: Library Program
 # Authors: Osama Ashraf & Muhammad Radwan
-# Version: v3.5
+# Version: v3.7
 # Description: -----
-# TODO: sort_library() function
 ################################
 
 from Major_Functions import *

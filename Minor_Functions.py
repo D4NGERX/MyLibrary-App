@@ -83,6 +83,7 @@ def update_database(library):
     database = open(DATABASE_PATH, "a")
 
     for (book) in library:  # Formatting lines to be printed in terminal and output.txt file
+        book[ID] = str(library.index(book) + 1)
         database.write(formatting(book))
         database.write("\n" + SEPARATING_LINE)  # Printing Separating Line
 

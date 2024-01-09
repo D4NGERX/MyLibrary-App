@@ -42,9 +42,40 @@ def check(choice):  # Checking User Choice
     elif choice == "5":
         show_library()
 
-    # elif choice == '6':
-    #     sort_library()
+    elif choice == '6':
+        Function_Parameters = {
+            "Title" : TITLE,
+            "Pages" : PAGES,
+            "Progress" : PERCENT,
+            "Start Date" : DATE,
+            "Status" : STATUS,
+            "Author" : AUTHOR,
+            "Added Recently" : "Added Recently"
+            }
+
+        Parameter = input("sort by [Title, Pages, Progress, Start Date, Status, Author, Added Recently]: ").title()
+        while Parameter not in Function_Parameters.keys():
+            print("Please choose a valid choice.")
+            Parameter = input("sort by [Title, Pages, Progress, Start Date, Status, Author, Added Recently]: ").title()
         
+        if Parameter == "Added Recently":
+            library = get_books_from(DEFAULT_PATH)
+            update_database(library)
+            
+        
+        elif Parameter in Function_Parameters.keys():
+            Sort_Type = {"Ascending" : False, "A" : False, "Descending" : True, "D" : True}
+
+            Type = input("Ascending [A] or Descending [D]? ").title()
+            while Type not in Sort_Type.keys():
+                print("Please choose a valid choice.")
+                Type = input("Ascending [A] or Descending [D]? ").title()
+
+
+            library = sort_library_by(Function_Parameters[Parameter], Sort_Type[Type])
+            update_database(library)
+
+    
     elif choice == '7':
         mark_page()
 
@@ -126,7 +157,7 @@ def add_new_book():  # Adding book to Library
 
     database_a = open(DATABASE_PATH, "a")
     book = {}
-    book[ID] = f'{len(get_books()) + 1 + 1}'    # Adding 1 to the length of the library to get cuurent count of books and 1 to get the next ID
+    book[ID] = f'{len(get_books_from(DATABASE_PATH)) + 1 + 1}'    # Adding 1 to the length of the library to get cuurent count of books and 1 to get the next ID
     book[TITLE] = title
     book[PAGES] = f"{read_pages}/{Total_pages}"
     book[DATE] = start_date
@@ -138,11 +169,11 @@ def add_new_book():  # Adding book to Library
     database_a.write("\n" + SEPARATING_LINE)
     database_a.close()
 
-    calc_percentage(len(get_books()))
+    calc_percentage(len(get_books_from(DATABASE_PATH)))
 
 
 def remove_book(book_title):  # Rmoving book by entering its title
-    library = get_books()
+    library = get_books_from(DATABASE_PATH)
     found = False
     for book in library:
         if book[TITLE].title() == book_title:
@@ -156,7 +187,7 @@ def remove_book(book_title):  # Rmoving book by entering its title
 
 
 def show_library():  # Showing th Whole Library
-    update_database(get_books())
+    update_database(get_books_from(DATABASE_PATH))
     
     database = advanced_open(DATABASE_PATH, "r")
     
@@ -167,7 +198,7 @@ def show_library():  # Showing th Whole Library
 
 
 def show_books_by(parameter, value):  # Find books with parameter value
-    library = get_books() 
+    library = get_books_from(DATABASE_PATH)
 
     results = []  # Result books
     result_ID = 0  # Result books IDs
@@ -189,7 +220,7 @@ def show_books_by(parameter, value):  # Find books with parameter value
 
 
 def modify(title, parameter, new_value):  # Modify any value by book title
-    library = get_books()
+    library = get_books_from(DATABASE_PATH)
     for i in range(len(library)):
         if library[i][TITLE].title() == title:
             if parameter == "Pages":
@@ -206,7 +237,7 @@ def modify(title, parameter, new_value):  # Modify any value by book title
 
 
 def read(choose):  # Updating count of read pages and percentage after reading some pages
-    library = get_books()
+    library = get_books_from(DATABASE_PATH)
     readpages = integer_only(
         "Enter the number of pages you have read: ",
         "Please enter the number of pages as an integer only",
@@ -233,7 +264,7 @@ def mark_page():
     order = get_book_order(title)
 
     page_to_mark = integer_only("Enter page to mark: ", "Please, Enter a valid page number!")
-    while page_to_mark > int(get_books()[order][PAGES].split("/")[1]):   # Making sure that user entered valid page number
+    while page_to_mark > int(get_books_from(DATABASE_PATH)[order][PAGES].split("/")[1]):   # Making sure that user entered valid page number
         print("Please, Enter a valid page number!")
         page_to_mark = integer_only("Enter page to mark: ", "Please, Enter a valid page number!")
 
@@ -248,5 +279,14 @@ def mark_page():
     
     
 
-    database.close()
-    print("Marked !")
+def sort_library_by(Parameter, Type):
+    books = get_books_from(DATABASE_PATH)
+    if Parameter == PAGES:
+        sorted_books = sorted(books, key= sort_by_pages, reverse= Type)
+    elif Parameter == PERCENT:
+        sorted_books = sorted(books, key= sort_by_percentage, reverse= Type)
+    elif Parameter == DATE:
+        sorted_books = sorted(books, key= sort_by_date, reverse= Type)
+    else:
+        sorted_books = sorted(books, key= lambda book: book[Parameter], reverse= Type)
+    return sorted_books

@@ -3,14 +3,14 @@ from Style import *
 
 
 
-def get_books():
+def get_books_from(file):
     """Get books' details list from database.txt file
 
     Returns:
         list: list of books' details
     """
     books_details = []
-    database = advanced_open(DATABASE_PATH, "r")  # Opening database file
+    database = advanced_open(file, "r")  # Opening input file
     lines = database.readlines()
     for line in lines:
         line = [element.strip('\t \n') for element in line.split("|")]    # Clearing line
@@ -20,7 +20,7 @@ def get_books():
             books_details.append(line)
 
     database.close()
-    books_details = reorder_books(books_details[1:])    # Reorder books according to global parameters & remove table header
+    books_details = reorder_books(books_details[1:], file)    # Reorder books according to global parameters & remove table header
     return books_details
 
 
@@ -45,7 +45,7 @@ def check_found(title):
     Returns:
         bool: True if book is in database, False otherwise
     """
-    books = get_books()
+    books = get_books_from(DATABASE_PATH)
 
     for i in range(len(books)):
         if books[i][TITLE].title() == title:
@@ -114,7 +114,7 @@ def calc_percentage(choose):
     Args:
         choose (int): book index
     """
-    library = get_books()
+    library = get_books_from(DATABASE_PATH)
     read_pages = int(library[choose - 1][PAGES].split("/")[0])
     total_pages = int(library[choose - 1][PAGES].split("/")[1])
 
@@ -149,7 +149,7 @@ def choose_book():
     Returns:
         int: book index
     """
-    library = get_books()
+    library = get_books_from(DATABASE_PATH)
     books_list = []
     for book in library:  # Getting books list
         books_list.append(book[TITLE])
@@ -224,7 +224,22 @@ def get_correct_date_format(instructions, Error_Massage):
     return date
 
 
-def reorder_books(library):
+def sort_by_pages(book):
+    read_pages, total_pages = map(int, book[PAGES].split("/"))
+    return total_pages, read_pages
+
+
+def sort_by_percentage(book):
+    percentage = int(book[PERCENT].rstrip("%"))
+    return percentage
+
+
+def sort_by_date(book):
+    day, month, year = map(int, book[DATE].split("/"))
+    return year, month, day
+
+
+def reorder_books(library, file):
     """Reorder books according to global parameters
 
     Args:
@@ -233,7 +248,7 @@ def reorder_books(library):
     Returns:
         list: list of books after reordering
     """
-    database = advanced_open(DATABASE_PATH, "r")
+    database = advanced_open(file, "r")
     lines = database.readlines()
 
     # Getting old order of parameters
@@ -285,7 +300,7 @@ def get_book_order(title):
     Returns:
         int: book index
     """
-    library = get_books()
+    library = get_books_from(DATABASE_PATH)
     for i in range(len(library)):
         if library[i][TITLE] == title:
             return i

@@ -5,10 +5,10 @@ MARKS_PATH = "Marked Pages.txt"
 RATINGS_PATH = "ratings.txt"
 
 # Global Variables
-PARAMETERS = ["ID", "Title", "Status", "Date", "Pages", "Per", "Author"]   # Note: Order of parameters is the order of columns in database
+PARAMETERS = ["No.", "Title", "Status", "Date", "Pages", "Per", "Author"]   # Note: Order of parameters is the order of columns in database
 
 WIDTHS = {
-    "ID": 1,
+    "No.": 1,
     "Title": 4,
     "Pages": 2,
     "Per": 1,
@@ -34,7 +34,7 @@ SEPARATING_LINE = generateLine()
 
 GUIDE = dict(zip(PARAMETERS, range(len(PARAMETERS))))
 
-ID = GUIDE["ID"]
+ID = GUIDE["No."]
 TITLE = GUIDE["Title"]
 PAGES = GUIDE["Pages"]
 PERCENT = GUIDE["Per"]

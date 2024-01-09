@@ -1,20 +1,18 @@
 # Files Paths
 DATABASE_PATH = "database.txt"
 OUTPUT_PATH = "output.txt"
-MARKS_PATH = "Marked Pages.txt"
-RATINGS_PATH = "ratings.txt"
+DEFAULT_PATH = "default.txt"
 
 # Global Variables
-PARAMETERS = ["No.", "Title", "Status", "Date", "Pages", "Per", "Author"]   # Note: Order of parameters is the order of columns in database
+PARAMETERS = ["Title", "Pages", "Per", "Date", "Status", "Author"]
 
 WIDTHS = {
-    "No.": 1,
     "Title": 4,
     "Pages": 2,
     "Per": 1,
     "Date": 2,
     "Status": 2,
-    "Author": 4
+    "Author": 3
 }
 
 def generateLine():
@@ -25,16 +23,27 @@ def generateLine():
         f"+{BAR*WIDTHS[PARAMETERS[2]] + "-"*(WIDTHS[PARAMETERS[2]]-1)}"
         f"+{BAR*WIDTHS[PARAMETERS[3]] + "-"*(WIDTHS[PARAMETERS[3]]-1)}"
         f"+{BAR*WIDTHS[PARAMETERS[4]] + "-"*(WIDTHS[PARAMETERS[4]]-1)}"
-        f"+{BAR*WIDTHS[PARAMETERS[5]] + "-"*(WIDTHS[PARAMETERS[5]]-1)}"
-        f"+{BAR*WIDTHS[PARAMETERS[6]] + "-"*(WIDTHS[PARAMETERS[6]]-1)}+"
+        f"+{BAR*WIDTHS[PARAMETERS[5]] + "-"*(WIDTHS[PARAMETERS[5]]-1)}+"
     )
+
+def justify(string, width):
+    return string + " "*(width-len(string))
 
 
 SEPARATING_LINE = generateLine()
 
+
+
+
+
 GUIDE = dict(zip(PARAMETERS, range(len(PARAMETERS))))
 
-ID = GUIDE["No."]
+# from Minor_Functions import get_books
+
+
+# current_order = get_books()[0]
+
+
 TITLE = GUIDE["Title"]
 PAGES = GUIDE["Pages"]
 PERCENT = GUIDE["Per"]

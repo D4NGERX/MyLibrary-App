@@ -218,10 +218,13 @@ def find_books_by(parameter, value):
     library = get_books_from(DATABASE_PATH)
 
     results = []  # Result books
+    book_ID = 0
 
     for book in library:  # Search book by book    
 
         if book[GUIDE[parameter]].title() == value:
+            book_ID += 1
+            book[ID] = f'{book_ID}'
             results.append(book)
 
     if results == []:  # Checking if results are found

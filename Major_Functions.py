@@ -4,26 +4,25 @@ def main_menu():
     """Main Menu of the program"""
 
     print("-----------------------------------------------")
-    print("1) Add New book")                                 # Done
-    print("2) Remove book")                                  # Done
-    print("3) I read some pages")                            # Done
-    print("4) Get book details")                             # Done
-    print("5) Show my Library")                              # Done
-    print("6) Sort my library")                              # Under Dev
-    print("7) Mark page")                                    # Done
-    print("8) Find books by [Title, Date, Status, Author]")  # Done
-    print("9) Modify book details")                          # Done
+    print("1)  Add New book")                                # Done
+    print("2)  Remove book")                                 # Done
+    print("3)  I read some pages")                           # Done
+    print("4)  Get book details")                            # Done
+    print("5)  Show my Library")                             # Done
+    print("6)  Sort my library")                             # Done
+    print("7)  Mark page")                                   # Done
+    print("8)  Find books by [Title, Date, Status, Author]") # Done
+    print("9)  Modify book details")                         # Done
     print("10) Show my marks")                               # Done
     print("11) Show my ratings")                             # Done
     print("-----------------------------------------------")
-    print("#) Settings")                                   # Under Dev
-    print("0) Exit")                                         # Done
+    print("0)  Exit")                                        # Done
     print("00) Clear Screen")                                # Done
     print("-----------------------------------------------")
 
 
 def check(choice):  # Checking User Choice
-    output_file = open(OUTPUT_PATH, "w").close()  # Making Sure That output file is opened and clean
+    open(OUTPUT_PATH, "w").close()  # Making Sure That output file is opened and clean
     
     if choice == "1":
         add_new_book()
@@ -45,39 +44,35 @@ def check(choice):  # Checking User Choice
         show_library()
 
     elif choice == '6':
-        Function_Parameters = {
-            "Title" : TITLE,
-            "Pages" : PAGES,
-            "Progress" : PERCENT,
-            "Start Date" : DATE,
-            "Status" : STATUS,
-            "Author" : AUTHOR,
-            "Added Recently" : "Added Recently"
-            }
-
         Parameter = input("sort by [Title, Pages, Progress, Start Date, Status, Author, Added Recently]: ").title()
-        while Parameter not in Function_Parameters.keys():
+        while Parameter not in SORTING_PARAMETERS.keys():
             print("Please choose a valid choice.")
             Parameter = input("sort by [Title, Pages, Progress, Start Date, Status, Author, Added Recently]: ").title()
         
+        library = get_books_from(DATABASE_PATH)
+        
         if Parameter == "Added Recently":
-            library = get_books_from(DEFAULT_PATH)
+            sort_mode = open(SORT_MODE_PATH, "w")
+            sort_mode.write("off")
+            sort_mode.close()
             update_database(library)
             
         
-        elif Parameter in Function_Parameters.keys():
-            Sort_Type = {"Ascending" : False, "A" : False, "Descending" : True, "D" : True}
-
+        elif Parameter in SORTING_PARAMETERS.keys():
+            
             Type = input("Ascending [A] or Descending [D]? ").title()
-            while Type not in Sort_Type.keys():
+            while Type not in SORT_TYPE.keys():
                 print("Please choose a valid choice.")
                 Type = input("Ascending [A] or Descending [D]? ").title()
+            
+            mode = [Parameter + "\n" , Type]
+            sort_mode = open(SORT_MODE_PATH, "w")
+            sort_mode.write("on\n")
+            sort_mode.writelines(mode)
+            sort_mode.close()
 
-
-            library = sort_library_by(Function_Parameters[Parameter], Sort_Type[Type])
             update_database(library)
 
-    
     elif choice == '7':
         mark_page()
 
@@ -115,11 +110,6 @@ def check(choice):  # Checking User Choice
 
 
 
-    elif choice == "#":  # Settings
-        print("Change Database Path")
-        print("Change Output Path")
-        print("Change Marks Path")
-
     elif choice == "0":  # exiting program using exit() function
         print("Bye !")
         exit()
@@ -142,9 +132,9 @@ def add_new_book():
             break
         print("Book already exists !")
 
-    Total_pages = input("Number of pages: ")
+    Total_pages = integer_only("Number of pages: ", "Please enter numbers only")
     author = input("Author name: ").title()
-    start_date = get_correct_date_format("Start Date: ", "Please, Enter a valid date")
+    
     while True:
         try:
             status = input("What is the status of the book ?[reading - wishlist - finished]: ").title()
@@ -154,12 +144,18 @@ def add_new_book():
             print("Please, Enter a valid choice !")
 
     read_pages = 0
-    if status == "Finished":
-        read_pages = Total_pages
-    elif status == "Reading":
-        read_pages = integer_only("Number of read pages: ", "Please, Enter the number of pages:")
+    if status == "Wishlist":
+        start_date = "N/A"
+    else:
+        start_date = get_correct_date_format("Start Date: ", "Please, Enter a valid date")
+        if status == "Finished":
+            read_pages = Total_pages
+        elif status == "Reading":
+            read_pages = integer_only("Number of pages you have read: ", "Please, Enter the number of pages:")
+    
+    
 
-    database_a = open(DATABASE_PATH, "a")
+    library = get_books_from(DATABASE_PATH)
     book = {}
     book[ID] = f'{len(get_books_from(DATABASE_PATH)) + 1 + 1}'    # Adding 1 to the length of the library to get cuurent count of books and 1 to get the next ID
     book[TITLE] = title
@@ -169,9 +165,12 @@ def add_new_book():
     book[AUTHOR] = author
     book[PERCENT] = '0'
     book = [book[i] for i in range(len(PARAMETERS))] # Converting book from dictionary to list
-    database_a.write(formatting(book))
-    database_a.write("\n" + SEPARATING_LINE)
-    database_a.close()
+
+    library.append(book)
+    update_database(library)
+
+    print("Added !")
+    #sort_library_by()
 
     calc_percentage(len(get_books_from(DATABASE_PATH)))
 
@@ -200,7 +199,11 @@ def show_library():
 
     update_database(get_books_from(DATABASE_PATH))
     
-    database = advanced_open(DATABASE_PATH, "r")
+    source = advanced_open("sort mode.txt", "r").readlines()[0].strip()
+    if source == "on":
+        database = advanced_open(SORTED_PATH, "r")
+    else:
+        database = advanced_open(DATABASE_PATH, "r")
     
     lines = database.readlines()
 
@@ -308,25 +311,3 @@ def mark_page():
     database.write('\n+-------------------------------+---------------+-------------------------------------------------------+')
 
     database.close()
-       
-
-def sort_library_by(Parameter, Type):
-    """Sorting the library by any parameter
-
-    Args:
-        Parameter (string): Parameter to sort by
-        Type (string): Type of sorting [Ascending, Descending]
-
-    Returns:
-        list: sorted library
-    """
-    books = get_books_from(DATABASE_PATH)
-    if Parameter == PAGES:
-        sorted_books = sorted(books, key= sort_by_pages, reverse= Type)
-    elif Parameter == PERCENT:
-        sorted_books = sorted(books, key= sort_by_percentage, reverse= Type)
-    elif Parameter == DATE:
-        sorted_books = sorted(books, key= sort_by_date, reverse= Type)
-    else:
-        sorted_books = sorted(books, key= lambda book: book[Parameter], reverse= Type)
-    return sorted_books

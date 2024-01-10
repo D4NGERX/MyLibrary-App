@@ -80,8 +80,8 @@ def update_database(library):
     Args:
         library (list): list of books after any modification
     """
-    database = open(DATABASE_PATH, "w")  # Clearing Database
-    database.write(TABLE_HEADER)  # Appending table Header
+    database = open(DATABASE_PATH, "w")        # Clearing Database
+    database.write(TABLE_HEADER)               # Appending table Header
     database.close()
     database = open(DATABASE_PATH, "a")
 
@@ -91,6 +91,23 @@ def update_database(library):
         database.write("\n" + SEPARATING_LINE)  # Printing Separating Line
 
     database.close()
+
+    
+    # Updating Sorted Database
+
+    default = open(SORTED_PATH, "w")  # Clearing Database
+    default.write(TABLE_HEADER)  # Appending table Header
+    default.close()
+    default = open(SORTED_PATH, "a")
+
+    library = apply_sort(library)
+
+    for (book) in library:  # Formatting lines to be printed in terminal and output.txt file
+        book[ID] = str(library.index(book) + 1)
+        default.write(formatting(book))
+        default.write("\n" + SEPARATING_LINE)  # Printing Separating Line
+
+    default.close()
 
 
 def integer_only(instructions, Error_Massage): 
@@ -154,6 +171,8 @@ def choose_book():
         int: book index
     """
     library = get_books_from(DATABASE_PATH)
+    # library = sort_library_by(TITLE, False)
+
     books_list = []
     for book in library:  # Getting books list
         books_list.append(book[TITLE])
@@ -170,7 +189,7 @@ def choose_book():
     return choose
 
 
-def get_correct_date_format(instructions, Error_Massage):
+def get_correct_date_format(instructions, Error_Massage, start_date = True):  # Making sure that user entered a valid date
     """Making sure that user entered a valid date
 
     Args:
@@ -189,16 +208,17 @@ def get_correct_date_format(instructions, Error_Massage):
     while True:
         try:
             date = input(instructions)
-            if len(date) == 10 and date[2] == "/" and date[5] == "/" or len(date) == 9 and date[2] == "/" and date[4] == "/" or len(date) == 9 and date[1] == "/" and date[4] == "/" or len(date) == 8 and date[1] == "/" and date[3] == "/":
-                date_components = date.split("/")
+            date_components = date.split("/")
+            if len(date_components) == 3:
+                
                 day = date_components[0]
                 month = date_components[1]
                 year = date_components[2]
-                regular_months = [4, 6, 9, 11]
-                if int(month) == 0 or int(day) == 0 or int(year) == 0:
+                regular_months = [4, 6, 8, 11]
+                if int(month) == 0 or int(day) == 0 or int(year) < 1000:
                     print(Error_Massage)
                     continue
-                if int(month) > 12 or int(day) > 31:
+                if int(month) > 12 or int(day) > 31 or len(year) != 4:
                     print(Error_Massage)
                     continue
                 if int(month) in regular_months and int(day) > 30:
@@ -217,8 +237,12 @@ def get_correct_date_format(instructions, Error_Massage):
                 if int(month) < 10:
                     month = "0" + month
                 date_value = year + month + day
-                if int(date_value) > int(Current_date_value):
-                    print(Error_Massage)
+                if start_date == True:
+                    if int(date_value) > int(Current_date_value):
+                        print(Error_Massage)
+                        continue
+                    else:
+                        break
                 else:
                     break
             else:
@@ -263,7 +287,8 @@ def sort_by_date(book):
     Returns:
         tuple: date in year, month, day format
     """
-    day, month, year = map(int, book[DATE].split("/"))
+
+    day, month, year = map(int, (book[DATE] if book[DATE] != "N/A" else "0/0/0").split("/"))     # If date is N/A, set it to 0/0/0 to be sorted at the end
     return year, month, day
 
 
@@ -379,3 +404,38 @@ def rating_after_finishing(library, choose):
     file.write("\n+-------------------------------+---------------+")
 
     file.close()
+
+
+def apply_sort(library):
+    mode = open(SORT_MODE_PATH)
+    values= mode.readlines()
+    values = [value.strip("\n") for value in values]
+    mode.close()
+    if values[0] == "on":
+        library = sort_library_by(SORTING_PARAMETERS[values[1]], SORT_TYPE[values[2]])
+        return library
+    
+    elif values[0] == "off":
+        return library
+    
+
+def sort_library_by(Parameter, Type):
+    """Sorting the library by any parameter
+
+    Args:
+        Parameter (string): Parameter to sort by
+        Type (string): Type of sorting [Ascending, Descending]
+
+    Returns:
+        list: sorted library
+    """
+    books = get_books_from(DATABASE_PATH)
+    if Parameter == PAGES:
+        sorted_books = sorted(books, key= sort_by_pages, reverse= Type)
+    elif Parameter == PERCENT:
+        sorted_books = sorted(books, key= sort_by_percentage, reverse= Type)
+    elif Parameter == DATE:
+        sorted_books = sorted(books, key= sort_by_date, reverse= Type)
+    else:
+        sorted_books = sorted(books, key= lambda book: book[Parameter], reverse= Type)
+    return sorted_books

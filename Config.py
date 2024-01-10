@@ -3,7 +3,8 @@ DATABASE_PATH = "database.txt"
 OUTPUT_PATH = "output.txt"
 MARKS_PATH = "Marked Pages.txt"
 RATINGS_PATH = "ratings.txt"
-DEFAULT_PATH = "default.txt"
+SORTED_PATH = "sorted.txt"
+SORT_MODE_PATH = "sort mode.txt"
 
 # Global Variables
 PARAMETERS = ["No.", "Title", "Status", "Date", "Pages", "Per", "Author"]   # Note: Order of parameters is the order of columns in database
@@ -42,3 +43,16 @@ PERCENT = GUIDE["Per"]
 DATE = GUIDE["Date"]
 STATUS = GUIDE["Status"]
 AUTHOR = GUIDE["Author"]
+
+
+SORTING_PARAMETERS = {
+    "Title" : TITLE,
+    "Pages" : PAGES,
+    "Progress" : PERCENT,
+    "Start Date" : DATE,
+    "Status" : STATUS,
+    "Author" : AUTHOR,
+    "Added Recently" : "Added Recently"
+}
+
+SORT_TYPE = {"Ascending" : False, "A" : False, "Descending" : True, "D" : True}

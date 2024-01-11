@@ -85,7 +85,7 @@ def update_database(library):
     database.close()
     database = open(DATABASE_PATH, "a")
 
-    for (book) in library:  # Formatting lines to be printed in terminal and output.txt file
+    for book in library:  # Formatting lines to be printed in terminal and output.txt file
         book[ID] = str(library.index(book) + 1)
         database.write(formatting(book))
         database.write("\n" + SEPARATING_LINE)  # Printing Separating Line
@@ -102,7 +102,7 @@ def update_database(library):
 
     library = apply_sort(library)
 
-    for (book) in library:  # Formatting lines to be printed in terminal and output.txt file
+    for book in library:  # Formatting lines to be printed in terminal and output.txt file
         book[ID] = str(library.index(book) + 1)
         default.write(formatting(book))
         default.write("\n" + SEPARATING_LINE)  # Printing Separating Line
@@ -320,7 +320,7 @@ def reorder_books(library, PATH):
     return ordered_library
 
 
-def advanced_open(path, mode):
+def advanced_open(path, mode="r"):
     """Open file for read and create it if not found to avoid errors
 
     Args:
@@ -336,11 +336,19 @@ def advanced_open(path, mode):
     except FileNotFoundError:
         file = open(path, 'w')   # Creating database.txt file in required place
 
-        if path == DATABASE_PATH:
+        if path == DATABASE_PATH: # Adding appropriate header based on file
             file.write(TABLE_HEADER)
+        elif path == SORTED_PATH :
+            file.write(TABLE_HEADER)
+        elif path == RATINGS_PATH:
+            file.write(RATINGS_HEADER)
+        elif path == MARKS_PATH:
+            file.write(MARKS_HEADER)
+        elif path == SORT_MODE_PATH:
+            file.write("off")
 
         file.close()
-        file = open(DATABASE_PATH, "r")
+        file = open(path, mode)
     
     return file
 
@@ -390,6 +398,7 @@ def rating_after_finishing(library, choose):
         library (list): list of books
         choose (int): book index
     """
+    advanced_open(RATINGS_PATH, 'r').close()     # Making sure that Ratings file is found and appending header
     file = open(RATINGS_PATH, 'a')
     title = library[choose - 1][TITLE]
 
@@ -407,7 +416,7 @@ def rating_after_finishing(library, choose):
 
 
 def apply_sort(library):
-    mode = open(SORT_MODE_PATH)
+    mode = advanced_open(SORT_MODE_PATH)
     values= mode.readlines()
     values = [value.strip("\n") for value in values]
     mode.close()

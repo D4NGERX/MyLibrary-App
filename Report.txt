@@ -1,0 +1,22 @@
+Problem Solved: Navigating through books Labyrinth with Ease
+
+In a world abundant with books, readers often face a common challenge: staying organized and engaged amidst a growing library. MyLibrary App offers a solution, empowering readers to effortlessly manage their literary journeys and rediscover the joy of reading.
+
+Key Features:
+
+- Track Reading Progress with Precision.
+- Customize Your Library, Your Way.
+- Enhance Your Reading Experience.
+
+
+We made sure the program has a high fault tolerance and will not crash (using try/except statements). We've considered all cases even worth ones.
+We added an extensive comment in the code to make it readable and easy for maintenance. We made sure that all functions are well-named to enhance readability.
+
+
+
+How work was distributed:
+We cooperated in many functions and made changes to each other code. But generally,
+Osama was responsible for style functions, add, Mark page, ratings, and their minor functions
+Mohmed was more concentrated on sorting, removing, reading, choosing, and their minor functions
+
+The work was distributed based on skills, familiarity with syntax, and information.

@@ -286,6 +286,8 @@ def read(choose):
 def mark_page():
     """Marking a page in a book and adding a comment"""
 
+    advanced_open(MARKS_PATH, "r").close()      # Making sure that marks file is found and appeneding header
+
     database = open(MARKS_PATH, 'a')
     
     title = input("Enter Book Title:").title()

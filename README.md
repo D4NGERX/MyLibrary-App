@@ -1,5 +1,5 @@
 <img src="banner.png">
-![v1.0.0](https://img.shields.io/badge/v1.0.0-gray?style=flat)
+<img src="https://img.shields.io/badge/version-1.0.0-gray?labelColor=brown&style=flat" alt="version" />
 
 MyLibrary App is an offline tool which simplifies the organization and tracking of personal reading journeys. As a virtual librarian, My Library App caters to individuals seeking a centralized hub for managing their book collections, effortlessly overseeing their reading progress and preferences.
 

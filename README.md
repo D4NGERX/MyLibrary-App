@@ -56,3 +56,7 @@ Users will be able to show their entire library, add new books, remove and modif
 - ### Vast amount of Comments
 	Each Function has a docstring to describe its functionality, arguments, and returns.
 	Each peace of code has comment to describe it
+
+
+> [!TIP]
+> You can change columns order by changing it in config.py file

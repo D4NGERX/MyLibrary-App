@@ -19,11 +19,11 @@ guide = {    # Translating parameter into number
 def main_menu():
     print('-----------------------------------------------')
     print('1) Add New book')       # Done
-    print('2) Remove book')
-    print('3) I read some pages')
+    print('2) Remove book')        # Under Dev
+    print('3) I read some pages')   #Done
     print('4) Get book details')    # Done
     print('5) Show my Library')     # Done
-    print('6) Sort my library')
+    print('6) Sort my library')     # Under Dev
     print('7) Mark page')           
     print('8) Find books by [Title, Date, Status, Author]') # Done
     print('9) Modify book details') # Done
@@ -42,7 +42,7 @@ def check(choice):          # Osama   # Checking User Choice
     # elif choice == '3':
     #     read_pages()
     #     calc_percent()
-    #     modify(title, percent, new_percent)
+    #     modify(title, new_percent)
     #     if percent == 100:
     #           modify(title, status, 'Finished')
     #           rate_book(title)

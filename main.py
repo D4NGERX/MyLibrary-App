@@ -12,7 +12,6 @@ print('-----------------Library App-------------------')
 
 while True:
     main_menu()
-
     choice = input()
     try:
         check(choice)

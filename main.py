@@ -7,9 +7,9 @@
 
 from Major_Functions import *
 
-print("-----------------------------------------------")
-print("-----------------Library App-------------------")
 
+print("-----------------Library App-------------------")
+print("this is a copy")
 while True:
     main_menu()
 
